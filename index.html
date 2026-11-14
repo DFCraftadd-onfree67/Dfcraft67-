@@ -442,7 +442,7 @@ body.light .df-settings-social .df-social-icon{color:#555f6c}
 })();
 </script>
 
-<div class="about" data-i18n="about">DFCraft Web • Versi 67.9.9</div><div class="actions"><button class="cancel" id="closeSettings" data-i18n="close">Tutup</button></div></div></div><div id="modal" class="modal" style="display:none"><div class="box"><h2 data-i18n="addTitle">Tambah Add-On</h2><input id="name" data-i18n-placeholder="namePlaceholder" placeholder="Nama Add-On"><label class="file-label" for="image" data-i18n="chooseImage">Pilih gambar, GIF, atau video (maks. 10 detik)</label><input id="image" type="file" accept="image/*,video/*" style="display:none"><div id="imagePreview" class="image-preview" data-i18n="noImage">Belum ada media dipilih</div><input id="link" data-i18n-placeholder="mediafirePlaceholder" placeholder="Link MediaFire (harus sesuai kategori)"><div id="linkValidationStatus" style="margin-top:8px;font-size:13px;color:#aeb8c8"></div><select id="cat"><option>Add-Ons</option><option>Worlds</option><option>Texture Packs/Shader</option><option>Skin</option><option>Minecraft APK</option></select><div class="actions"><button class="cancel" id="cancel" data-i18n="cancel">Batal</button><button class="save" id="save" data-i18n="addButton">Tambahkan</button></div></div></div>
+<div class="about" data-i18n="about">DFCraft Web • Versi 67.9.12</div><div class="actions"><button class="cancel" id="closeSettings" data-i18n="close">Tutup</button></div></div></div><div id="modal" class="modal" style="display:none"><div class="box"><h2 data-i18n="addTitle">Tambah Add-On</h2><input id="name" data-i18n-placeholder="namePlaceholder" placeholder="Nama Add-On"><label class="file-label" for="image" data-i18n="chooseImage">Pilih gambar, GIF, atau video (maks. 10 detik)</label><input id="image" type="file" accept="image/*,video/*" style="display:none"><div id="imagePreview" class="image-preview" data-i18n="noImage">Belum ada media dipilih</div><input id="link" data-i18n-placeholder="mediafirePlaceholder" placeholder="Link MediaFire (harus sesuai kategori)"><div id="linkValidationStatus" style="margin-top:8px;font-size:13px;color:#aeb8c8"></div><select id="cat"><option>Add-Ons</option><option>Worlds</option><option>Texture Packs/Shader</option><option>Skin</option><option>Minecraft APK</option></select><div class="actions"><button class="cancel" id="cancel" data-i18n="cancel">Batal</button><button class="save" id="save" data-i18n="addButton">Tambahkan</button></div></div></div>
 <script>
 // Tidak ada Add-On contoh bawaan.
 let items=[];
@@ -998,7 +998,7 @@ $("add").onclick=()=>{
 };
 $("settings").onclick=()=>{$("settingsModal").style.display="flex";setActiveNav("settings");applyLanguage();};
 $("closeSettings").onclick=()=>$("settingsModal").style.display="none";
-const DFCraft_VERSION = "67.9.11"; // Ubah satu nilai ini setiap rilis DFCraft.
+const DFCraft_VERSION = "67.9.12"; // Ubah satu nilai ini setiap rilis DFCraft.
 const translations={
  id:{
   all:"SEMUA",home:"Beranda",downloads:"Unduhan",add:"Tambah",settings:"Pengaturan",settingsTitle:"Pengaturan",
@@ -1007,7 +1007,7 @@ const translations={
   addOns:"ADD-ONS",worlds:"Worlds",textures:"Texture Packs/Shader",skins:"Skin",minecraftApk:"Minecraft APK",
   download:"Download",downloadAgain:"Download Lagi",delete:"Hapus Add-On",deleteHistory:"Hapus",
   empty:"Belum ada item.",emptyDownloads:"Belum ada Add-On yang diunduh. Tekan tombol Download pada Add-On untuk memasukkannya ke sini.",
-  downloaded:"Diunduh",about:"DFCraft Web • Versi 67.9.9",confirmClear:"Hapus semua riwayat Unduhan?",
+  downloaded:"Diunduh",about:"DFCraft Web • Versi 67.9.12",confirmClear:"Hapus semua riwayat Unduhan?",
   confirmReset:"Reset semua data DFCraft? Data Add-On dan riwayat Unduhan akan dihapus.",
   searchCategory:"🔎 Pilih Kategori",searchAll:"Semua",searchAddOns:"Add-Ons",searchWorlds:"Worlds",
   searchTextures:"Texture Packs/Shader",searchSkin:"Skin",searchApk:"Minecraft APK",
@@ -1037,7 +1037,7 @@ const translations={
   loginRequiredDownload:'Silakan login terlebih dahulu untuk mengunduh Add-On.',
   loginRequiredAdd:'Harap login menggunakan akun Google untuk menambahkan Add-On ke DFCraft.',
   loginRequiredReaction:'Harap login menggunakan akun Google untuk memberi Like atau Dislike.',
-  guestContinue:'Lanjutkan sebagai Guest', aboutVersion:"Versi 67.9.9",aboutBrand:"DFCraft Web"
+  guestContinue:'Lanjutkan sebagai Guest', aboutVersion:"Versi 67.9.12",aboutBrand:"DFCraft Web"
  },
  en:{
   all:"ALL",home:"Home",downloads:"Downloads",add:"Add",settings:"Settings",settingsTitle:" Settings",
@@ -1076,7 +1076,7 @@ const translations={
   loginRequiredDownload:'Please log in first to download an Add-On.',
   loginRequiredAdd:'Please sign in with Google to add an Add-On to DFCraft.',
   loginRequiredReaction:'Please sign in with Google to Like or Dislike.',
-  guestContinue:'Continue as Guest', aboutVersion:"Version 4.10.1",aboutBrand:"DFCraft Web"
+  guestContinue:'Continue as Guest', aboutVersion:"Version 67.9.12",aboutBrand:"DFCraft Web"
  },
  ms:{
   all:"SEMUA",home:"Laman Utama",downloads:"Muat Turun",add:"Tambah",settings:"Tetapan",settingsTitle:" Tetapan",
@@ -1085,7 +1085,7 @@ const translations={
   addOns:"ADD-ONS",worlds:"Dunia",textures:"Texture Packs/Shader",skins:"Skin",minecraftApk:"APK Minecraft",
   download:"Muat Turun",downloadAgain:"Muat Turun Lagi",delete:"Padam Add-On",deleteHistory:"Padam",
   empty:"Tiada item lagi.",emptyDownloads:"Belum ada Add-On dimuat turun. Tekan Muat Turun pada Add-On untuk menambahkannya di sini.",
-  downloaded:"Dimuat turun",about:"DFCraft Web • Versi 67.9.9",confirmClear:"Padam semua sejarah muat turun?",
+  downloaded:"Dimuat turun",about:"DFCraft Web • Versi 67.9.12",confirmClear:"Padam semua sejarah muat turun?",
   confirmReset:"Tetapkan semula semua data DFCraft? Add-On dan sejarah muat turun akan dipadam.",
   searchCategory:"🔎 Pilih Kategori",searchAll:"Semua",searchAddOns:"Add-Ons",searchWorlds:"Dunia",
   searchTextures:"Texture Packs/Shader",searchSkin:"Skin",searchApk:"APK Minecraft",
@@ -1115,7 +1115,7 @@ const translations={
   loginRequiredDownload:'Sila log masuk dahulu untuk memuat turun Add-On.',
   loginRequiredAdd:'Sila log masuk menggunakan akaun Google untuk menambah Add-On ke DFCraft.',
   loginRequiredReaction:'Sila log masuk menggunakan akaun Google untuk Like atau Dislike.',
-  guestContinue:'Teruskan sebagai Tetamu', aboutVersion:"Versi 67.9.9",aboutBrand:"DFCraft Web"
+  guestContinue:'Teruskan sebagai Tetamu', aboutVersion:"Versi 67.9.12",aboutBrand:"DFCraft Web"
  },
  es:{
   all:"TODO",home:"Inicio",downloads:"Descargas",add:"Añadir",settings:"Ajustes",settingsTitle:" Ajustes",
@@ -1154,7 +1154,7 @@ const translations={
   loginRequiredDownload:'Inicia sesión primero para descargar un Add-On.',
   loginRequiredAdd:'Inicia sesión con Google para añadir un Add-On a DFCraft.',
   loginRequiredReaction:'Inicia sesión con Google para indicar Me gusta o No me gusta.',
-  guestContinue:'Continuar como invitado', aboutVersion:"Versión 4.9.5",aboutBrand:"DFCraft Web"
+  guestContinue:'Continuar como invitado', aboutVersion:"Versión 67.9.12",aboutBrand:"DFCraft Web"
  },
  pt:{
   all:"TODOS",home:"Início",downloads:"Downloads",add:"Adicionar",settings:"Configurações",settingsTitle:" Configurações",
@@ -1193,7 +1193,7 @@ const translations={
   loginRequiredDownload:'Faça login primeiro para baixar um Add-On.',
   loginRequiredAdd:'Entre com o Google para adicionar um Add-On ao DFCraft.',
   loginRequiredReaction:'Entre com o Google para curtir ou não curtir.',
-  guestContinue:'Continuar como visitante', aboutVersion:"Versão 4.10.1",aboutBrand:"DFCraft Web"
+  guestContinue:'Continuar como visitante', aboutVersion:"Versão 67.9.12",aboutBrand:"DFCraft Web"
  },
  ja:{
   all:"すべて",home:"ホーム",downloads:"ダウンロード",add:"追加",settings:"設定",settingsTitle:" 設定",
@@ -1232,7 +1232,7 @@ const translations={
   loginRequiredDownload:'Add-Onをダウンロードするには、先にログインしてください。',
   loginRequiredAdd:'Add-OnをDFCraftに追加するには、Googleアカウントでログインしてください。',
   loginRequiredReaction:'いいね・よくないねをするには、Googleアカウントでログインしてください。',
-  guestContinue:'ゲストとして続行', aboutVersion:"バージョン4.9.9",aboutBrand:"DFCraft Web"
+  guestContinue:'ゲストとして続行', aboutVersion:"バージョン 67.9.12",aboutBrand:"DFCraft Web"
  }
 };
 
@@ -1787,12 +1787,13 @@ loadRemoteAddons();
   });
   $('guestModeBtn').addEventListener('click',function(){
     if(currentAppwriteUser)return;
+    // Masuk langsung sebagai Guest: jangan tampilkan dialog login/peringatan.
     dfSetGuestMode(true);
     $('authModal').style.display='none';
-    if(window.showDFLoginNotice){
-      // No sign-up data or password is requested in Guest mode.
-      window.showDFLoginNotice('Mode Guest aktif. Kamu hanya bisa mengunduh Add-On. Login Google diperlukan untuk Like, Dislike, dan menambahkan Add-On.');
-    }
+    const notice=$('dfLoginNotice');
+    if(notice) notice.classList.remove('show');
+    // Guest tetap dapat menjelajah dan mengunduh; fitur interaksi tetap meminta login.
+    if(typeof render==='function') render();
   });
   if(new URLSearchParams(window.location.search).has('oauth_error')){
     const msg=$('socialLoginMsg');
