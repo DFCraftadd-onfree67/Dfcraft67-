@@ -451,6 +451,16 @@ let current="Semua",page="home";
 let selectedImageFile=null;
 let currentAppwriteUser=null;
 let appwriteReady=false;
+// Guest mode is temporary for this browser tab/session.
+let isGuestMode=false;
+try{isGuestMode=sessionStorage.getItem("dfcraft_guest_mode")==="1";}catch(e){}
+function dfSetGuestMode(enabled){
+  isGuestMode=!!enabled;
+  try{
+    if(isGuestMode) sessionStorage.setItem("dfcraft_guest_mode","1");
+    else sessionStorage.removeItem("dfcraft_guest_mode");
+  }catch(e){}
+}
 // DFCraft versi gratis: unduhan dan penambahan Add-On tidak dibatasi kuota Pro.
 function dfCanDownload(){ return true; }
 function dfCanUpload(){ return !!currentAppwriteUser; }
@@ -462,7 +472,7 @@ document.addEventListener("click",function(ev){
     ? ev.target.closest("#detailDownloadBtn,[data-download-id],.redownload")
     : null;
   if(!downloadLink) return;
-  if(!currentAppwriteUser){
+  if(!currentAppwriteUser && !isGuestMode){
     ev.preventDefault(); ev.stopImmediatePropagation();
     window.showDFLoginNotice(t("loginRequiredDownload"));
   }
@@ -988,7 +998,7 @@ $("add").onclick=()=>{
 };
 $("settings").onclick=()=>{$("settingsModal").style.display="flex";setActiveNav("settings");applyLanguage();};
 $("closeSettings").onclick=()=>$("settingsModal").style.display="none";
-const DFCraft_VERSION = "67.9.10"; // Ubah satu nilai ini setiap rilis DFCraft.
+const DFCraft_VERSION = "67.9.11"; // Ubah satu nilai ini setiap rilis DFCraft.
 const translations={
  id:{
   all:"SEMUA",home:"Beranda",downloads:"Unduhan",add:"Tambah",settings:"Pengaturan",settingsTitle:"Pengaturan",
@@ -1025,9 +1035,9 @@ const translations={
   authIntro:'Pilih akun untuk masuk/login.',
   authGoogle:'Lanjutkan dengan Google',
   loginRequiredDownload:'Silakan login terlebih dahulu untuk mengunduh Add-On.',
-  loginRequiredAdd:'Silakan login terlebih dahulu untuk menambahkan Add-On ke DFCraft.',
-  loginRequiredReaction:'Silakan login terlebih dahulu agar setiap akun hanya dapat memberikan satu reaksi.',
-  aboutVersion:"Versi 67.9.9",aboutBrand:"DFCraft Web"
+  loginRequiredAdd:'Harap login menggunakan akun Google untuk menambahkan Add-On ke DFCraft.',
+  loginRequiredReaction:'Harap login menggunakan akun Google untuk memberi Like atau Dislike.',
+  guestContinue:'Lanjutkan sebagai Guest', aboutVersion:"Versi 67.9.9",aboutBrand:"DFCraft Web"
  },
  en:{
   all:"ALL",home:"Home",downloads:"Downloads",add:"Add",settings:"Settings",settingsTitle:" Settings",
@@ -1064,9 +1074,9 @@ const translations={
   authIntro:'Choose an account to sign in.',
   authGoogle:'Continue with Google',
   loginRequiredDownload:'Please log in first to download an Add-On.',
-  loginRequiredAdd:'Please log in first to add an Add-On to DFCraft.',
-  loginRequiredReaction:'Please log in first. Each account can give only one reaction.',
-  aboutVersion:"Version 4.10.1",aboutBrand:"DFCraft Web"
+  loginRequiredAdd:'Please sign in with Google to add an Add-On to DFCraft.',
+  loginRequiredReaction:'Please sign in with Google to Like or Dislike.',
+  guestContinue:'Continue as Guest', aboutVersion:"Version 4.10.1",aboutBrand:"DFCraft Web"
  },
  ms:{
   all:"SEMUA",home:"Laman Utama",downloads:"Muat Turun",add:"Tambah",settings:"Tetapan",settingsTitle:" Tetapan",
@@ -1103,9 +1113,9 @@ const translations={
   authIntro:'Pilih akaun untuk log masuk.',
   authGoogle:'Teruskan dengan Google',
   loginRequiredDownload:'Sila log masuk dahulu untuk memuat turun Add-On.',
-  loginRequiredAdd:'Sila log masuk dahulu untuk menambah Add-On ke DFCraft.',
-  loginRequiredReaction:'Sila log masuk dahulu. Setiap akaun hanya boleh memberikan satu reaksi.',
-  aboutVersion:"Versi 67.9.9",aboutBrand:"DFCraft Web"
+  loginRequiredAdd:'Sila log masuk menggunakan akaun Google untuk menambah Add-On ke DFCraft.',
+  loginRequiredReaction:'Sila log masuk menggunakan akaun Google untuk Like atau Dislike.',
+  guestContinue:'Teruskan sebagai Tetamu', aboutVersion:"Versi 67.9.9",aboutBrand:"DFCraft Web"
  },
  es:{
   all:"TODO",home:"Inicio",downloads:"Descargas",add:"Añadir",settings:"Ajustes",settingsTitle:" Ajustes",
@@ -1142,9 +1152,9 @@ const translations={
   authIntro:'Elige una cuenta para iniciar sesión.',
   authGoogle:'Continuar con Google',
   loginRequiredDownload:'Inicia sesión primero para descargar un Add-On.',
-  loginRequiredAdd:'Inicia sesión primero para añadir un Add-On a DFCraft.',
-  loginRequiredReaction:'Inicia sesión primero. Cada cuenta solo puede dar una reacción.',
-  aboutVersion:"Versión 4.9.5",aboutBrand:"DFCraft Web"
+  loginRequiredAdd:'Inicia sesión con Google para añadir un Add-On a DFCraft.',
+  loginRequiredReaction:'Inicia sesión con Google para indicar Me gusta o No me gusta.',
+  guestContinue:'Continuar como invitado', aboutVersion:"Versión 4.9.5",aboutBrand:"DFCraft Web"
  },
  pt:{
   all:"TODOS",home:"Início",downloads:"Downloads",add:"Adicionar",settings:"Configurações",settingsTitle:" Configurações",
@@ -1181,9 +1191,9 @@ const translations={
   authIntro:'Escolha uma conta para entrar.',
   authGoogle:'Continuar com o Google',
   loginRequiredDownload:'Faça login primeiro para baixar um Add-On.',
-  loginRequiredAdd:'Faça login primeiro para adicionar um Add-On ao DFCraft.',
-  loginRequiredReaction:'Faça login primeiro. Cada conta pode dar apenas uma reação.',
-  aboutVersion:"Versão 4.10.1",aboutBrand:"DFCraft Web"
+  loginRequiredAdd:'Entre com o Google para adicionar um Add-On ao DFCraft.',
+  loginRequiredReaction:'Entre com o Google para curtir ou não curtir.',
+  guestContinue:'Continuar como visitante', aboutVersion:"Versão 4.10.1",aboutBrand:"DFCraft Web"
  },
  ja:{
   all:"すべて",home:"ホーム",downloads:"ダウンロード",add:"追加",settings:"設定",settingsTitle:" 設定",
@@ -1220,9 +1230,9 @@ const translations={
   authIntro:'ログインするアカウントを選択してください。',
   authGoogle:'Googleで続行',
   loginRequiredDownload:'Add-Onをダウンロードするには、先にログインしてください。',
-  loginRequiredAdd:'Add-OnをDFCraftに追加するには、先にログインしてください。',
-  loginRequiredReaction:'先にログインしてください。各アカウントが送信できるリアクションは1回です。',
-  aboutVersion:"バージョン4.9.9",aboutBrand:"DFCraft Web"
+  loginRequiredAdd:'Add-OnをDFCraftに追加するには、Googleアカウントでログインしてください。',
+  loginRequiredReaction:'いいね・よくないねをするには、Googleアカウントでログインしてください。',
+  guestContinue:'ゲストとして続行', aboutVersion:"バージョン4.9.9",aboutBrand:"DFCraft Web"
  }
 };
 
@@ -1637,6 +1647,7 @@ loadRemoteAddons();
         <span data-i18n="authGoogle">Lanjutkan dengan Google</span>
       </button>
       <div id="socialLoginMsg" class="auth-msg"></div>
+      <button type="button" class="auth-close" id="guestModeBtn" data-i18n="guestContinue" style="margin-top:12px">Lanjutkan sebagai Guest</button>
 
       <!-- Form lama dipertahankan tersembunyi agar fungsi akun lama tidak merusak skrip lainnya. -->
       <div class="legacy-auth-hidden" aria-hidden="true">
@@ -1742,6 +1753,7 @@ loadRemoteAddons();
     try { currentAppwriteUser=await window.dfAppwriteAccount.get(); }
     catch(e){ currentAppwriteUser=null; }
     const logged=!!currentAppwriteUser;
+    if(logged) dfSetGuestMode(false);
     $('authLoggedOut').style.display=logged?'none':'block';
     $('authLoggedIn').classList.toggle('show',logged);
     if(logged){
@@ -1769,7 +1781,19 @@ loadRemoteAddons();
       '&failure='+encodeURIComponent(redirect+'?oauth_error=1');
     window.location.assign(url);
   }
-  $('googleLoginBtn').addEventListener('click',function(){startSocialLogin('google');});
+  $('googleLoginBtn').addEventListener('click',function(){
+    dfSetGuestMode(false);
+    startSocialLogin('google');
+  });
+  $('guestModeBtn').addEventListener('click',function(){
+    if(currentAppwriteUser)return;
+    dfSetGuestMode(true);
+    $('authModal').style.display='none';
+    if(window.showDFLoginNotice){
+      // No sign-up data or password is requested in Guest mode.
+      window.showDFLoginNotice('Mode Guest aktif. Kamu hanya bisa mengunduh Add-On. Login Google diperlukan untuk Like, Dislike, dan menambahkan Add-On.');
+    }
+  });
   if(new URLSearchParams(window.location.search).has('oauth_error')){
     const msg=$('socialLoginMsg');
     if(msg){msg.textContent='Login gagal. Pastikan penyedia Google/Facebook sudah diaktifkan di Appwrite dan domain situs sudah ditambahkan.';msg.style.display='block';}
