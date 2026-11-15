@@ -10,7 +10,16 @@
 
 
 <title>DFCraft Add-on Minecraft</title><style>
-*{box-sizing:border-box}body{margin:0;background:#10151b;color:#fff;font-family:Arial,sans-serif;padding-bottom:82px}.top{display:flex;gap:10px;padding:18px}.search{flex:1;background:#292e36;border:0;border-radius:30px;padding:16px 20px;color:#fff;font-size:18px;outline:0}.avatar{width:52px;height:52px;min-width:52px;min-height:52px;flex:0 0 52px;border-radius:50%;overflow:hidden;background:#293852;display:grid;place-items:center;font-weight:bold}.account-avatar{aspect-ratio:1/1}.recommend-wrap{padding:0 18px 20px}.recommend-title{font-size:20px;font-weight:bold;margin:0 0 12px}
+/* DFCraft custom text color: apply consistently across the whole interface. */
+body, body * {
+  color: var(--df-user-text, #ffffff) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--df-user-text, #ffffff) !important;
+  opacity: .72;
+}
+
+*{box-sizing:border-box}body{margin:0;background:var(--df-user-bg,#10151b);color:var(--df-user-text,#fff);font-family:Arial,sans-serif;padding-bottom:82px}.top{display:flex;gap:10px;padding:18px}.search{flex:1;background:#292e36;border:0;border-radius:30px;padding:16px 20px;color:#fff;font-size:18px;outline:0}.avatar{width:52px;height:52px;min-width:52px;min-height:52px;flex:0 0 52px;border-radius:50%;overflow:hidden;background:#293852;display:grid;place-items:center;font-weight:bold}.account-avatar{aspect-ratio:1/1}.recommend-wrap{padding:0 18px 20px}.recommend-title{font-size:20px;font-weight:bold;margin:0 0 12px}
 .recommend-title{display:flex;align-items:center;gap:8px}
 .df-ui-icon{width:22px;height:22px;flex:0 0 22px;display:inline-block;fill:currentColor;vertical-align:middle}
 .df-star-icon{width:24px;height:24px;flex-basis:24px}
@@ -19,7 +28,7 @@
 .delete{display:flex;align-items:center;justify-content:center;gap:7px}
 .delete:before{content:"";display:inline-block;width:12px;height:13px;border:2px solid currentColor;border-top:0;border-radius:0 0 2px 2px;position:relative;flex:none}
 .delete:after{content:"";display:inline-block;width:16px;height:2px;background:currentColor;position:absolute;transform:translateY(-8px);opacity:.95}
-.recommend{display:flex;gap:13px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding-bottom:6px;-ms-overflow-style:none;scrollbar-width:none}.recommend::-webkit-scrollbar{display:none}.recommend .recommend-image{cursor:pointer;min-width:78%;max-width:78%;scroll-snap-align:start;border-radius:16px;overflow:hidden;background:#1c222a;display:block}.recommend .recommend-image img{width:100%;aspect-ratio:1.8;object-fit:cover;display:block}.chips{display:flex;gap:10px;overflow:auto;padding:0 18px 20px}.chip{white-space:nowrap;padding:12px 17px;border-radius:24px;border:1px solid #425064;background:#202832;color:#a9caff;font-weight:bold}.section{padding:0 18px}.title{font-size:20px;font-weight:bold;margin:5px 0 13px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.card{background:#1c222a;border-radius:14px;overflow:hidden;cursor:pointer}.card img{width:100%;aspect-ratio:1.4;object-fit:cover;background:#303844}.body{padding:11px}.name{font-weight:bold;font-size:15px}.meta{font-size:12px;color:#9da9b8;margin-top:5px}.download{display:block;text-align:center;text-decoration:none;color:#07111d;background:#9fc5ff;padding:9px;border-radius:9px;margin-top:10px;font-weight:bold;font-size:12px}.delete{display:block;width:100%;border:0;color:#fff;background:#b83b46;padding:9px;border-radius:9px;margin-top:8px;font-weight:bold;font-size:12px;cursor:pointer}.empty{padding:25px;color:#919dac}.download-card{background:#1c222a;border-radius:14px;overflow:hidden}.download-card img{width:100%;aspect-ratio:1.4;object-fit:cover;background:#303844}.download-body{padding:11px}.download-name{font-weight:bold;font-size:15px}.download-date{font-size:12px;color:#9da9b8;margin-top:5px}.download-actions{display:flex;gap:8px;margin-top:10px}.download-actions a,.download-actions button{flex:1;text-align:center;text-decoration:none;border:0;padding:9px;border-radius:9px;font-weight:bold;font-size:12px;cursor:pointer}.redownload{color:#07111d;background:#9fc5ff}.remove-download{color:#fff;background:#b83b46}.bottom{position:fixed;bottom:0;left:0;right:0;height:78px;background:#20252d;border-top:1px solid #303844;display:flex;justify-content:space-around}.nav{border:0;background:transparent;color:#c5ccd7;min-width:70px}.nav b{display:block;font-size:27px}.nav.active{color:#a9caff}.modal{position:fixed;inset:0;background:#000b;display:flex;align-items:center;justify-content:center;padding:20px}.box{width:100%;max-width:430px;background:#1b222b;border-radius:20px;padding:20px}.box input,.box select{width:100%;margin:6px 0;padding:12px;border-radius:10px;border:1px solid #3c4858;background:#10151b;color:#fff}.file-label{display:block;width:100%;margin:6px 0;padding:12px;border-radius:10px;border:1px solid #3c4858;background:#10151b;color:#fff;text-align:left;cursor:pointer}.image-preview{width:100%;min-height:48px;margin:6px 0;padding:10px;border-radius:10px;border:1px dashed #3c4858;color:#919dac;font-size:13px;text-align:center}.image-preview img{max-width:100%;max-height:180px;border-radius:8px;display:block;margin:auto}.actions{display:flex;gap:10px;margin-top:10px}.actions button{flex:1;padding:12px;border:0;border-radius:10px;font-weight:bold}.cancel{background:#343d49;color:#fff}.save{background:#9fc5ff}@media(max-width:420px){.grid{gap:10px}}.settings-box{max-height:85vh;overflow:auto}.setting-label{display:block;font-size:13px;color:#9da9b8;margin:12px 0 4px}.setting-action{width:100%;padding:12px;margin-top:9px;border:0;border-radius:10px;background:#293544;color:#fff;font-weight:bold;text-align:left;cursor:pointer}.setting-action.danger{background:#5b2930}.about{margin-top:15px;padding:12px;border-radius:10px;background:#141a21;color:#9da9b8;font-size:12px;text-align:center}body.light{background:#f2f4f7;color:#18202a}body.light .search,body.light .box input,body.light .box select,body.light .file-label{background:#fff;color:#18202a;border-color:#c5ccd7}body.light .chip{background:#fff;color:#315d9d;border-color:#aab6c7}body.light .card,body.light .download-card{background:#fff}body.light .meta,body.light .download-date{color:#667383}body.light .bottom{background:#fff;border-color:#d5dbe3}body.light .nav{color:#4e5a68}body.light .nav.active{color:#315d9d}body.light .box{background:#fff;color:#18202a}body.light .about{background:#eef1f5}body.light .recommend .recommend-image{background:#e4e8ee}body.light .title{color:#18202a}body.light .recommend-title{color:#18202a}@media(max-width:420px){.grid{gap:10px}}
+.recommend{display:flex;gap:13px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding-bottom:6px;-ms-overflow-style:none;scrollbar-width:none}.recommend::-webkit-scrollbar{display:none}.recommend .recommend-image{cursor:pointer;min-width:78%;max-width:78%;scroll-snap-align:start;border-radius:16px;overflow:hidden;background:#1c222a;display:block}.recommend .recommend-image img{width:100%;aspect-ratio:1.8;object-fit:cover;display:block}.chips{display:flex;gap:10px;overflow:auto;padding:0 18px 20px}.chip{white-space:nowrap;padding:12px 17px;border-radius:24px;border:1px solid #425064;background:#202832;color:#a9caff;font-weight:bold}.section{padding:0 18px}.title{font-size:20px;font-weight:bold;margin:5px 0 13px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:13px}.card{background:#1c222a;border-radius:14px;overflow:hidden;cursor:pointer}.card img{width:100%;aspect-ratio:1.4;object-fit:cover;background:#303844}.body{padding:11px}.name{font-weight:bold;font-size:15px}.meta{font-size:12px;color:#9da9b8;margin-top:5px}.download{display:block;text-align:center;text-decoration:none;color:#07111d;background:#9fc5ff;padding:9px;border-radius:9px;margin-top:10px;font-weight:bold;font-size:12px}.delete{display:block;width:100%;border:0;color:#fff;background:#b83b46;padding:9px;border-radius:9px;margin-top:8px;font-weight:bold;font-size:12px;cursor:pointer}.empty{padding:25px;color:#919dac}.download-card{background:#1c222a;border-radius:14px;overflow:hidden}.download-card img{width:100%;aspect-ratio:1.4;object-fit:cover;background:#303844}.download-body{padding:11px}.download-name{font-weight:bold;font-size:15px}.download-date{font-size:12px;color:#9da9b8;margin-top:5px}.download-actions{display:flex;gap:8px;margin-top:10px}.download-actions a,.download-actions button{flex:1;text-align:center;text-decoration:none;border:0;padding:9px;border-radius:9px;font-weight:bold;font-size:12px;cursor:pointer}.redownload{color:#07111d;background:#9fc5ff}.remove-download{color:#fff;background:#b83b46}.bottom{position:fixed;bottom:0;left:0;right:0;height:78px;background:#20252d;border-top:1px solid #303844;display:flex;justify-content:space-around}.nav{border:0;background:transparent;color:#c5ccd7;min-width:70px}.nav b{display:block;font-size:27px}.nav.active{color:#a9caff}.modal{position:fixed;inset:0;background:#000b;display:flex;align-items:center;justify-content:center;padding:20px}.box{width:100%;max-width:430px;background:#1b222b;border-radius:20px;padding:20px}.box input,.box select{width:100%;margin:6px 0;padding:12px;border-radius:10px;border:1px solid #3c4858;background:#10151b;color:#fff}.file-label{display:block;width:100%;margin:6px 0;padding:12px;border-radius:10px;border:1px solid #3c4858;background:#10151b;color:#fff;text-align:left;cursor:pointer}.image-preview{width:100%;min-height:48px;margin:6px 0;padding:10px;border-radius:10px;border:1px dashed #3c4858;color:#919dac;font-size:13px;text-align:center}.image-preview img{max-width:100%;max-height:180px;border-radius:8px;display:block;margin:auto}.actions{display:flex;gap:10px;margin-top:10px}.actions button{flex:1;padding:12px;border:0;border-radius:10px;font-weight:bold}.cancel{background:#343d49;color:#fff}.save{background:#9fc5ff}@media(max-width:420px){.grid{gap:10px}}.settings-box{max-height:85vh;overflow:auto}.setting-color{display:block;width:100%;height:48px;padding:5px;border:1px solid #3c4858;border-radius:12px;background:#10151b;cursor:pointer}.setting-label{display:block;font-size:13px;color:#9da9b8;margin:12px 0 4px}.setting-action{width:100%;padding:12px;margin-top:9px;border:0;border-radius:10px;background:#293544;color:#fff;font-weight:bold;text-align:left;cursor:pointer}.setting-action.danger{background:#5b2930}.about{margin-top:15px;padding:12px;border-radius:10px;background:#141a21;color:#9da9b8;font-size:12px;text-align:center}body.light{background:var(--df-user-bg,#f2f4f7);color:var(--df-user-text,#18202a)}body.light .setting-color{background:#fff}body.light .search,body.light .box input,body.light .box select,body.light .file-label{background:#fff;color:#18202a;border-color:#c5ccd7}body.light .chip{background:#fff;color:#315d9d;border-color:#aab6c7}body.light .card,body.light .download-card{background:#fff}body.light .meta,body.light .download-date{color:#667383}body.light .bottom{background:#fff;border-color:#d5dbe3}body.light .nav{color:#4e5a68}body.light .nav.active{color:#315d9d}body.light .box{background:#fff;color:#18202a}body.light .about{background:#eef1f5}body.light .recommend .recommend-image{background:#e4e8ee}body.light .title{color:#18202a}body.light .recommend-title{color:#18202a}@media(max-width:420px){.grid{gap:10px}}
 /* DFCraft profile crop editor */
 .profile-crop{display:none;margin-top:12px;padding:14px;border-radius:18px;background:#101721;border:1px solid #344154}
 .profile-crop.show{display:block}
@@ -394,7 +403,12 @@ body.downloads-page #title{margin-top:0}
 </div>
 
 <nav class="bottom"><button class="nav active" id="home"><b>⌂</b><span data-i18n="home">Beranda</span></button><button class="nav" id="downloads"><b>↓</b><span data-i18n="downloads">Unduhan</span></button><button class="nav" id="add"><b>＋</b><span data-i18n="add">Tambah</span></button><button class="nav" id="settings"><b></b><span data-i18n="settings">Pengaturan</span></button></nav>
-<div id="settingsModal" class="modal" style="display:none"><div class="box settings-box"><h2 data-i18n="settingsTitle">Pengaturan</h2><label class="setting-label" data-i18n="languageLabel">Bahasa</label><select id="languageSelect"><option value="id">Bahasa Indonesia</option><option value="en">English</option><option value="ms">Bahasa Melayu</option><option value="es">Español</option><option value="pt">🇧🇷 Português</option><option value="ja">日本語</option></select><label class="setting-label" data-i18n="themeLabel">Tampilan</label><select id="themeSelect"><option value="dark" data-i18n="dark">Gelap</option><option value="light" data-i18n="light">Terang</option></select><button class="setting-action" id="clearDownloads" data-i18n="clearDownloads">Hapus semua riwayat Unduhan</button>
+<div id="settingsModal" class="modal" style="display:none"><div class="box settings-box"><h2 data-i18n="settingsTitle">Pengaturan</h2><label class="setting-label" data-i18n="languageLabel">Bahasa</label><select id="languageSelect"><option value="id">Bahasa Indonesia</option><option value="en">English</option><option value="ms">Bahasa Melayu</option><option value="es">Español</option><option value="pt">🇧🇷 Português</option><option value="ja">日本語</option></select><label class="setting-label" data-i18n="themeLabel">Tampilan</label><select id="themeSelect"><option value="dark" data-i18n="dark">Gelap</option><option value="light" data-i18n="light">Terang</option></select>
+<label class="setting-label" for="backgroundColorSelect" data-i18n="backgroundColorLabel">Warna tampilan</label>
+<input id="backgroundColorSelect" class="setting-color" type="color" value="#10151b" aria-label="Warna tampilan">
+<label class="setting-label" for="textColorSelect" data-i18n="textColorLabel">Warna teks</label>
+<input id="textColorSelect" class="setting-color" type="color" value="#ffffff" aria-label="Warna teks">
+<button class="setting-action" id="clearDownloads" data-i18n="clearDownloads">Hapus semua riwayat Unduhan</button>
 <div class="settings-extra">
   <button class="settings-action" id="aboutDfcraftBtn" type="button" data-i18n="aboutTitle" onclick="window.location.href='tentang.html'">Tentang DFCraft</button>
 <button class="settings-action" id="rulesDfcraftBtn" type="button" data-i18n="rulesTitle" onclick="window.location.href='aturan.html'">Aturan DFCraft</button>
@@ -442,7 +456,7 @@ body.light .df-settings-social .df-social-icon{color:#555f6c}
 })();
 </script>
 
-<div class="about" data-i18n="about">DFCraft Web • Versi 67.9.15</div><div class="actions"><button class="cancel" id="closeSettings" data-i18n="close">Tutup</button></div></div></div><div id="modal" class="modal" style="display:none"><div class="box"><h2 data-i18n="addTitle">Tambah Add-On</h2><input id="name" data-i18n-placeholder="namePlaceholder" placeholder="Nama Add-On"><label class="file-label" for="image" data-i18n="chooseImage">Pilih gambar, GIF, atau video (maks. 10 detik)</label><input id="image" type="file" accept="image/*,video/*" style="display:none"><div id="imagePreview" class="image-preview" data-i18n="noImage">Belum ada media dipilih</div><input id="link" data-i18n-placeholder="mediafirePlaceholder" placeholder="Link MediaFire (harus sesuai kategori)"><div id="linkValidationStatus" style="margin-top:8px;font-size:13px;color:#aeb8c8"></div><select id="cat"><option>Add-Ons</option><option>Worlds</option><option>Texture Packs/Shader</option><option>Skin</option><option>Minecraft APK</option></select><div class="actions"><button class="cancel" id="cancel" data-i18n="cancel">Batal</button><button class="save" id="save" data-i18n="addButton">Tambahkan</button></div></div></div>
+<div class="about" data-i18n="about">DFCraft Web • Versi 67.9.17</div><div class="actions"><button class="cancel" id="closeSettings" data-i18n="close">Tutup</button></div></div></div><div id="modal" class="modal" style="display:none"><div class="box"><h2 data-i18n="addTitle">Tambah Add-On</h2><input id="name" data-i18n-placeholder="namePlaceholder" placeholder="Nama Add-On"><label class="file-label" for="image" data-i18n="chooseImage">Pilih gambar, GIF, atau video (maks. 10 detik)</label><input id="image" type="file" accept="image/*,video/*" style="display:none"><div id="imagePreview" class="image-preview" data-i18n="noImage">Belum ada media dipilih</div><input id="link" data-i18n-placeholder="mediafirePlaceholder" placeholder="Link MediaFire (harus sesuai kategori)"><div id="linkValidationStatus" style="margin-top:8px;font-size:13px;color:#aeb8c8"></div><select id="cat"><option>Add-Ons</option><option>Worlds</option><option>Texture Packs/Shader</option><option>Skin</option><option>Minecraft APK</option></select><div class="actions"><button class="cancel" id="cancel" data-i18n="cancel">Batal</button><button class="save" id="save" data-i18n="addButton">Tambahkan</button></div></div></div>
 <script>
 // Tidak ada Add-On contoh bawaan.
 let items=[];
@@ -1011,16 +1025,16 @@ $("add").onclick=()=>{
 };
 $("settings").onclick=()=>{$("settingsModal").style.display="flex";setActiveNav("settings");applyLanguage();};
 $("closeSettings").onclick=()=>$("settingsModal").style.display="none";
-const DFCraft_VERSION = "67.9.15"; // Ubah satu nilai ini setiap rilis DFCraft.
+const DFCraft_VERSION = "67.9.17"; // Ubah satu nilai ini setiap rilis DFCraft.
 const translations={
  id:{
   all:"SEMUA",home:"Beranda",downloads:"Unduhan",add:"Tambah",settings:"Pengaturan",settingsTitle:"Pengaturan",
-  languageLabel:"Bahasa",themeLabel:"Tampilan",dark:"Gelap",light:"Terang",
+  languageLabel:"Bahasa",themeLabel:"Tampilan",dark:"Gelap",light:"Terang",backgroundColorLabel:"Warna tampilan",textColorLabel:"Warna teks",
   clearDownloads:"Hapus semua riwayat Unduhan",close:"Tutup",search:"Cari...",recommend:"Rekomendasi",
   addOns:"ADD-ONS",worlds:"Worlds",textures:"Texture Packs/Shader",skins:"Skin",minecraftApk:"Minecraft APK",
   download:"Download",downloadAgain:"Download Lagi",delete:"Hapus Add-On",deleteHistory:"Hapus",
   empty:"Belum ada item.",emptyDownloads:"Belum ada Add-On yang diunduh. Tekan tombol Download pada Add-On untuk memasukkannya ke sini.",
-  downloaded:"Diunduh",about:"DFCraft Web • Versi 67.9.15",confirmClear:"Hapus semua riwayat Unduhan?",
+  downloaded:"Diunduh",about:"DFCraft Web • Versi 67.9.17",confirmClear:"Hapus semua riwayat Unduhan?",
   confirmReset:"Reset semua data DFCraft? Data Add-On dan riwayat Unduhan akan dihapus.",
   searchCategory:"🔎 Pilih Kategori",searchAll:"Semua",searchAddOns:"Add-Ons",searchWorlds:"Worlds",
   searchTextures:"Texture Packs/Shader",searchSkin:"Skin",searchApk:"Minecraft APK",
@@ -1054,7 +1068,7 @@ const translations={
  },
  en:{
   all:"ALL",home:"Home",downloads:"Downloads",add:"Add",settings:"Settings",settingsTitle:" Settings",
-  languageLabel:" Language",themeLabel:"Appearance",dark:"Dark",light:"Light",
+  languageLabel:" Language",themeLabel:"Appearance",dark:"Dark",light:"Light",backgroundColorLabel:"Background color",textColorLabel:"Text color",
   clearDownloads:"Clear download history",close:"Close",search:"Search...",recommend:"Recommendations",
   addOns:"ADD-ONS",worlds:"Worlds",textures:"Texture Packs/Shader",skins:"Skins",minecraftApk:"Minecraft APK",
   download:"Download",downloadAgain:"Download Again",delete:"Delete Add-On",deleteHistory:"Delete",
@@ -1093,12 +1107,12 @@ const translations={
  },
  ms:{
   all:"SEMUA",home:"Laman Utama",downloads:"Muat Turun",add:"Tambah",settings:"Tetapan",settingsTitle:" Tetapan",
-  languageLabel:"Bahasa",themeLabel:"Paparan",dark:"Gelap",light:"Cerah",
+  languageLabel:"Bahasa",themeLabel:"Paparan",dark:"Gelap",light:"Cerah",backgroundColorLabel:"Warna paparan",textColorLabel:"Warna teks",
   clearDownloads:"Padam semua sejarah muat turun",close:"Tutup",search:"Cari...",recommend:"Disyorkan",
   addOns:"ADD-ONS",worlds:"Dunia",textures:"Texture Packs/Shader",skins:"Skin",minecraftApk:"APK Minecraft",
   download:"Muat Turun",downloadAgain:"Muat Turun Lagi",delete:"Padam Add-On",deleteHistory:"Padam",
   empty:"Tiada item lagi.",emptyDownloads:"Belum ada Add-On dimuat turun. Tekan Muat Turun pada Add-On untuk menambahkannya di sini.",
-  downloaded:"Dimuat turun",about:"DFCraft Web • Versi 67.9.15",confirmClear:"Padam semua sejarah muat turun?",
+  downloaded:"Dimuat turun",about:"DFCraft Web • Versi 67.9.17",confirmClear:"Padam semua sejarah muat turun?",
   confirmReset:"Tetapkan semula semua data DFCraft? Add-On dan sejarah muat turun akan dipadam.",
   searchCategory:"🔎 Pilih Kategori",searchAll:"Semua",searchAddOns:"Add-Ons",searchWorlds:"Dunia",
   searchTextures:"Texture Packs/Shader",searchSkin:"Skin",searchApk:"APK Minecraft",
@@ -1132,7 +1146,7 @@ const translations={
  },
  es:{
   all:"TODO",home:"Inicio",downloads:"Descargas",add:"Añadir",settings:"Ajustes",settingsTitle:" Ajustes",
-  languageLabel:" Idioma",themeLabel:"Apariencia",dark:"Oscuro",light:"Claro",
+  languageLabel:" Idioma",themeLabel:"Apariencia",dark:"Oscuro",light:"Claro",backgroundColorLabel:"Color de fondo",textColorLabel:"Color del texto",
   clearDownloads:"Borrar historial de descargas",close:"Cerrar",search:"Buscar...",recommend:"Recomendaciones",
   addOns:"ADD-ONS",worlds:"Mundos",textures:"Texture Packs/Shader",skins:"Skins",minecraftApk:"APK de Minecraft",
   download:"Descargar",downloadAgain:"Descargar de nuevo",delete:"Eliminar Add-On",deleteHistory:"Eliminar",
@@ -1171,7 +1185,7 @@ const translations={
  },
  pt:{
   all:"TODOS",home:"Início",downloads:"Downloads",add:"Adicionar",settings:"Configurações",settingsTitle:" Configurações",
-  languageLabel:" Idioma",themeLabel:"Aparência",dark:"Escuro",light:"Claro",
+  languageLabel:" Idioma",themeLabel:"Aparência",dark:"Escuro",light:"Claro",backgroundColorLabel:"Cor do fundo",textColorLabel:"Cor do texto",
   clearDownloads:"Limpar histórico de downloads",close:"Fechar",search:"Pesquisar...",recommend:"Recomendaciones",
   addOns:"ADD-ONS",worlds:"Mundos",textures:"Texture Packs/Shader",skins:"Skins",minecraftApk:"APK do Minecraft",
   download:"Baixar",downloadAgain:"Baixar novamente",delete:"Excluir Add-On",deleteHistory:"Excluir",
@@ -1210,7 +1224,7 @@ const translations={
  },
  ja:{
   all:"すべて",home:"ホーム",downloads:"ダウンロード",add:"追加",settings:"設定",settingsTitle:" 設定",
-  languageLabel:" 言語",themeLabel:"外観",dark:"ダーク",light:"ライト",
+  languageLabel:" 言語",themeLabel:"外観",dark:"ダーク",light:"ライト",backgroundColorLabel:"背景色",textColorLabel:"文字色",
   clearDownloads:"ダウンロード履歴を削除",close:"閉じる",search:"検索...",recommend:"おすすめ",
   addOns:"ADD-ONS",worlds:"ワールド",textures:"Texture Packs/Shader",skins:"スキン",minecraftApk:"Minecraft APK",
   download:"ダウンロード",downloadAgain:"再ダウンロード",delete:"Add-Onを削除",deleteHistory:"削除",
@@ -1263,6 +1277,15 @@ Object.keys(translations).forEach(code => {
 
 let language=localStorage.getItem("dfcraft_language")||"id";
 let theme=localStorage.getItem("dfcraft_theme")||"dark";
+let userBackgroundColor=localStorage.getItem("dfcraft_background_color")||(theme==="light"?"#f2f4f7":"#10151b");
+let userTextColor=localStorage.getItem("dfcraft_text_color")||(theme==="light"?"#18202a":"#ffffff");
+function applyUserColors(){
+  document.body.style.setProperty("--df-user-bg",userBackgroundColor);
+  document.body.style.setProperty("--df-user-text",userTextColor);
+  const bg=$("backgroundColorSelect"), tx=$("textColorSelect");
+  if(bg)bg.value=userBackgroundColor;
+  if(tx)tx.value=userTextColor;
+}
 function t(k){return (translations[language]&&translations[language][k])||translations.id[k]||k}
 window.dfTranslate=t;
 function applyLanguage(){
@@ -1275,11 +1298,28 @@ function applyLanguage(){
   $("languageSelect").value=language;
   $("themeSelect").value=theme;
   document.body.classList.toggle("light",theme==="light");
+  applyUserColors();
   render();
   if(window.dfRefreshNotificationText) window.dfRefreshNotificationText();
 }
 $("languageSelect").onchange=e=>{language=e.target.value;localStorage.setItem("dfcraft_language",language);applyLanguage()};
-$("themeSelect").onchange=e=>{theme=e.target.value;localStorage.setItem("dfcraft_theme",theme);applyLanguage()};
+$("themeSelect").onchange=e=>{
+  theme=e.target.value;
+  localStorage.setItem("dfcraft_theme",theme);
+  if(!localStorage.getItem("dfcraft_background_color"))userBackgroundColor=theme==="light"?"#f2f4f7":"#10151b";
+  if(!localStorage.getItem("dfcraft_text_color"))userTextColor=theme==="light"?"#18202a":"#ffffff";
+  applyLanguage();
+};
+$("backgroundColorSelect").oninput=e=>{
+  userBackgroundColor=e.target.value;
+  localStorage.setItem("dfcraft_background_color",userBackgroundColor);
+  applyUserColors();
+};
+$("textColorSelect").oninput=e=>{
+  userTextColor=e.target.value;
+  localStorage.setItem("dfcraft_text_color",userTextColor);
+  applyUserColors();
+};
 $("clearDownloads").onclick=()=>{if(confirm(t("confirmClear"))){downloads=[];localStorage.setItem("dfcraft_web2_downloads","[]");renderDownloads()}};
 
 $("cancel").onclick=()=>$("modal").style.display="none";
