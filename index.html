@@ -1011,7 +1011,7 @@ $("add").onclick=()=>{
 };
 $("settings").onclick=()=>{$("settingsModal").style.display="flex";setActiveNav("settings");applyLanguage();};
 $("closeSettings").onclick=()=>$("settingsModal").style.display="none";
-const DFCraft_VERSION = "67.9.13"; // Ubah satu nilai ini setiap rilis DFCraft.
+const DFCraft_VERSION = "67.9.14"; // Ubah satu nilai ini setiap rilis DFCraft.
 const translations={
  id:{
   all:"SEMUA",home:"Beranda",downloads:"Unduhan",add:"Tambah",settings:"Pengaturan",settingsTitle:"Pengaturan",
@@ -1813,7 +1813,7 @@ loadRemoteAddons();
     $('guestForm').style.display='block';
     $('guestModeBtn').style.display='none';
     $('guestFormMsg').textContent='';
-    $('guestNameInput').focus();
+    // Jangan fokus otomatis: mencegah keyboard HP langsung terbuka.
   });
   $('guestBackBtn').addEventListener('click',function(){
     $('guestForm').style.display='none';
