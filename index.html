@@ -442,7 +442,7 @@ body.light .df-settings-social .df-social-icon{color:#555f6c}
 })();
 </script>
 
-<div class="about" data-i18n="about">DFCraft Web • Versi 67.9.12</div><div class="actions"><button class="cancel" id="closeSettings" data-i18n="close">Tutup</button></div></div></div><div id="modal" class="modal" style="display:none"><div class="box"><h2 data-i18n="addTitle">Tambah Add-On</h2><input id="name" data-i18n-placeholder="namePlaceholder" placeholder="Nama Add-On"><label class="file-label" for="image" data-i18n="chooseImage">Pilih gambar, GIF, atau video (maks. 10 detik)</label><input id="image" type="file" accept="image/*,video/*" style="display:none"><div id="imagePreview" class="image-preview" data-i18n="noImage">Belum ada media dipilih</div><input id="link" data-i18n-placeholder="mediafirePlaceholder" placeholder="Link MediaFire (harus sesuai kategori)"><div id="linkValidationStatus" style="margin-top:8px;font-size:13px;color:#aeb8c8"></div><select id="cat"><option>Add-Ons</option><option>Worlds</option><option>Texture Packs/Shader</option><option>Skin</option><option>Minecraft APK</option></select><div class="actions"><button class="cancel" id="cancel" data-i18n="cancel">Batal</button><button class="save" id="save" data-i18n="addButton">Tambahkan</button></div></div></div>
+<div class="about" data-i18n="about">DFCraft Web • Versi 67.9.13</div><div class="actions"><button class="cancel" id="closeSettings" data-i18n="close">Tutup</button></div></div></div><div id="modal" class="modal" style="display:none"><div class="box"><h2 data-i18n="addTitle">Tambah Add-On</h2><input id="name" data-i18n-placeholder="namePlaceholder" placeholder="Nama Add-On"><label class="file-label" for="image" data-i18n="chooseImage">Pilih gambar, GIF, atau video (maks. 10 detik)</label><input id="image" type="file" accept="image/*,video/*" style="display:none"><div id="imagePreview" class="image-preview" data-i18n="noImage">Belum ada media dipilih</div><input id="link" data-i18n-placeholder="mediafirePlaceholder" placeholder="Link MediaFire (harus sesuai kategori)"><div id="linkValidationStatus" style="margin-top:8px;font-size:13px;color:#aeb8c8"></div><select id="cat"><option>Add-Ons</option><option>Worlds</option><option>Texture Packs/Shader</option><option>Skin</option><option>Minecraft APK</option></select><div class="actions"><button class="cancel" id="cancel" data-i18n="cancel">Batal</button><button class="save" id="save" data-i18n="addButton">Tambahkan</button></div></div></div>
 <script>
 // Tidak ada Add-On contoh bawaan.
 let items=[];
@@ -451,14 +451,27 @@ let current="Semua",page="home";
 let selectedImageFile=null;
 let currentAppwriteUser=null;
 let appwriteReady=false;
-// Guest mode is temporary for this browser tab/session.
+// Guest mode must be explicitly selected each time the app is opened.
 let isGuestMode=false;
-try{isGuestMode=sessionStorage.getItem("dfcraft_guest_mode")==="1";}catch(e){}
+let dfGuestName="";
+let dfGuestEmail="";
+try{
+  sessionStorage.removeItem("dfcraft_guest_mode");
+  sessionStorage.removeItem("dfcraft_guest_name");
+  sessionStorage.removeItem("dfcraft_guest_email");
+}catch(e){}
 function dfSetGuestMode(enabled){
   isGuestMode=!!enabled;
   try{
-    if(isGuestMode) sessionStorage.setItem("dfcraft_guest_mode","1");
-    else sessionStorage.removeItem("dfcraft_guest_mode");
+    if(isGuestMode){
+      sessionStorage.setItem("dfcraft_guest_mode","1");
+      sessionStorage.setItem("dfcraft_guest_name",dfGuestName);
+      sessionStorage.setItem("dfcraft_guest_email",dfGuestEmail);
+    }else{
+      sessionStorage.removeItem("dfcraft_guest_mode");
+      sessionStorage.removeItem("dfcraft_guest_name");
+      sessionStorage.removeItem("dfcraft_guest_email");
+    }
   }catch(e){}
 }
 // DFCraft versi gratis: unduhan dan penambahan Add-On tidak dibatasi kuota Pro.
@@ -998,7 +1011,7 @@ $("add").onclick=()=>{
 };
 $("settings").onclick=()=>{$("settingsModal").style.display="flex";setActiveNav("settings");applyLanguage();};
 $("closeSettings").onclick=()=>$("settingsModal").style.display="none";
-const DFCraft_VERSION = "67.9.12"; // Ubah satu nilai ini setiap rilis DFCraft.
+const DFCraft_VERSION = "67.9.13"; // Ubah satu nilai ini setiap rilis DFCraft.
 const translations={
  id:{
   all:"SEMUA",home:"Beranda",downloads:"Unduhan",add:"Tambah",settings:"Pengaturan",settingsTitle:"Pengaturan",
@@ -1007,7 +1020,7 @@ const translations={
   addOns:"ADD-ONS",worlds:"Worlds",textures:"Texture Packs/Shader",skins:"Skin",minecraftApk:"Minecraft APK",
   download:"Download",downloadAgain:"Download Lagi",delete:"Hapus Add-On",deleteHistory:"Hapus",
   empty:"Belum ada item.",emptyDownloads:"Belum ada Add-On yang diunduh. Tekan tombol Download pada Add-On untuk memasukkannya ke sini.",
-  downloaded:"Diunduh",about:"DFCraft Web • Versi 67.9.12",confirmClear:"Hapus semua riwayat Unduhan?",
+  downloaded:"Diunduh",about:"DFCraft Web • Versi 67.9.13",confirmClear:"Hapus semua riwayat Unduhan?",
   confirmReset:"Reset semua data DFCraft? Data Add-On dan riwayat Unduhan akan dihapus.",
   searchCategory:"🔎 Pilih Kategori",searchAll:"Semua",searchAddOns:"Add-Ons",searchWorlds:"Worlds",
   searchTextures:"Texture Packs/Shader",searchSkin:"Skin",searchApk:"Minecraft APK",
@@ -1034,10 +1047,10 @@ const translations={
   authTitle:'Login Akun',
   authIntro:'Pilih akun untuk masuk/login.',
   authGoogle:'Lanjutkan dengan Google',
-  loginRequiredDownload:'Silakan login terlebih dahulu untuk mengunduh Add-On.',
+  loginRequiredDownload:'Pilih Guest atau login Google terlebih dahulu untuk mengunduh Add-On.',
   loginRequiredAdd:'Harap login menggunakan akun Google untuk menambahkan Add-On ke DFCraft.',
   loginRequiredReaction:'Harap login menggunakan akun Google untuk memberi Like atau Dislike.',
-  guestContinue:'Lanjutkan sebagai Guest', aboutVersion:"Versi 67.9.12",aboutBrand:"DFCraft Web"
+  guestContinue:'Lanjutkan sebagai Guest', guestFormTitle:'Masuk sebagai Guest', guestNameLabel:'Nama panggilan', guestEmailLabel:'Email kontak (opsional)', guestNamePlaceholder:'Masukkan nama panggilan', guestEmailPlaceholder:'Email kontak (opsional)', guestEnter:'Masuk sebagai Guest', guestBack:'Kembali', aboutVersion:"Versi 67.9.13",aboutBrand:"DFCraft Web"
  },
  en:{
   all:"ALL",home:"Home",downloads:"Downloads",add:"Add",settings:"Settings",settingsTitle:" Settings",
@@ -1073,10 +1086,10 @@ const translations={
   authTitle:'Account Login',
   authIntro:'Choose an account to sign in.',
   authGoogle:'Continue with Google',
-  loginRequiredDownload:'Please log in first to download an Add-On.',
+  loginRequiredDownload:'Choose Guest or sign in with Google before downloading an Add-On.',
   loginRequiredAdd:'Please sign in with Google to add an Add-On to DFCraft.',
   loginRequiredReaction:'Please sign in with Google to Like or Dislike.',
-  guestContinue:'Continue as Guest', aboutVersion:"Version 67.9.12",aboutBrand:"DFCraft Web"
+  guestContinue:'Continue as Guest', guestFormTitle:'Continue as Guest', guestNameLabel:'Display name', guestEmailLabel:'Contact email (optional)', guestNamePlaceholder:'Enter a display name', guestEmailPlaceholder:'Contact email (optional)', guestEnter:'Enter as Guest', guestBack:'Back', aboutVersion:"Version 67.9.13",aboutBrand:"DFCraft Web"
  },
  ms:{
   all:"SEMUA",home:"Laman Utama",downloads:"Muat Turun",add:"Tambah",settings:"Tetapan",settingsTitle:" Tetapan",
@@ -1085,7 +1098,7 @@ const translations={
   addOns:"ADD-ONS",worlds:"Dunia",textures:"Texture Packs/Shader",skins:"Skin",minecraftApk:"APK Minecraft",
   download:"Muat Turun",downloadAgain:"Muat Turun Lagi",delete:"Padam Add-On",deleteHistory:"Padam",
   empty:"Tiada item lagi.",emptyDownloads:"Belum ada Add-On dimuat turun. Tekan Muat Turun pada Add-On untuk menambahkannya di sini.",
-  downloaded:"Dimuat turun",about:"DFCraft Web • Versi 67.9.12",confirmClear:"Padam semua sejarah muat turun?",
+  downloaded:"Dimuat turun",about:"DFCraft Web • Versi 67.9.13",confirmClear:"Padam semua sejarah muat turun?",
   confirmReset:"Tetapkan semula semua data DFCraft? Add-On dan sejarah muat turun akan dipadam.",
   searchCategory:"🔎 Pilih Kategori",searchAll:"Semua",searchAddOns:"Add-Ons",searchWorlds:"Dunia",
   searchTextures:"Texture Packs/Shader",searchSkin:"Skin",searchApk:"APK Minecraft",
@@ -1112,10 +1125,10 @@ const translations={
   authTitle:'Log Masuk Akaun',
   authIntro:'Pilih akaun untuk log masuk.',
   authGoogle:'Teruskan dengan Google',
-  loginRequiredDownload:'Sila log masuk dahulu untuk memuat turun Add-On.',
+  loginRequiredDownload:'Pilih Tetamu atau log masuk Google dahulu untuk memuat turun Add-On.',
   loginRequiredAdd:'Sila log masuk menggunakan akaun Google untuk menambah Add-On ke DFCraft.',
   loginRequiredReaction:'Sila log masuk menggunakan akaun Google untuk Like atau Dislike.',
-  guestContinue:'Teruskan sebagai Tetamu', aboutVersion:"Versi 67.9.12",aboutBrand:"DFCraft Web"
+  guestContinue:'Teruskan sebagai Tetamu', guestFormTitle:'Masuk sebagai Tetamu', guestNameLabel:'Nama panggilan', guestEmailLabel:'E-mel hubungan (pilihan)', guestNamePlaceholder:'Masukkan nama panggilan', guestEmailPlaceholder:'E-mel hubungan (pilihan)', guestEnter:'Masuk sebagai Tetamu', guestBack:'Kembali', aboutVersion:"Versi 67.9.13",aboutBrand:"DFCraft Web"
  },
  es:{
   all:"TODO",home:"Inicio",downloads:"Descargas",add:"Añadir",settings:"Ajustes",settingsTitle:" Ajustes",
@@ -1151,10 +1164,10 @@ const translations={
   authTitle:'Inicio de sesión',
   authIntro:'Elige una cuenta para iniciar sesión.',
   authGoogle:'Continuar con Google',
-  loginRequiredDownload:'Inicia sesión primero para descargar un Add-On.',
+  loginRequiredDownload:'Elige Invitado o inicia sesión con Google para descargar un Add-On.',
   loginRequiredAdd:'Inicia sesión con Google para añadir un Add-On a DFCraft.',
   loginRequiredReaction:'Inicia sesión con Google para indicar Me gusta o No me gusta.',
-  guestContinue:'Continuar como invitado', aboutVersion:"Versión 67.9.12",aboutBrand:"DFCraft Web"
+  guestContinue:'Continuar como invitado', guestFormTitle:'Entrar como invitado', guestNameLabel:'Nombre', guestEmailLabel:'Correo de contacto (opcional)', guestNamePlaceholder:'Escribe un nombre', guestEmailPlaceholder:'Correo de contacto (opcional)', guestEnter:'Entrar como invitado', guestBack:'Volver', aboutVersion:"Versión 67.9.13",aboutBrand:"DFCraft Web"
  },
  pt:{
   all:"TODOS",home:"Início",downloads:"Downloads",add:"Adicionar",settings:"Configurações",settingsTitle:" Configurações",
@@ -1190,10 +1203,10 @@ const translations={
   authTitle:'Login da conta',
   authIntro:'Escolha uma conta para entrar.',
   authGoogle:'Continuar com o Google',
-  loginRequiredDownload:'Faça login primeiro para baixar um Add-On.',
+  loginRequiredDownload:'Escolha Visitante ou entre com o Google para baixar um Add-On.',
   loginRequiredAdd:'Entre com o Google para adicionar um Add-On ao DFCraft.',
   loginRequiredReaction:'Entre com o Google para curtir ou não curtir.',
-  guestContinue:'Continuar como visitante', aboutVersion:"Versão 67.9.12",aboutBrand:"DFCraft Web"
+  guestContinue:'Continuar como visitante', guestFormTitle:'Entrar como visitante', guestNameLabel:'Nome', guestEmailLabel:'E-mail de contato (opcional)', guestNamePlaceholder:'Digite um nome', guestEmailPlaceholder:'E-mail de contato (opcional)', guestEnter:'Entrar como visitante', guestBack:'Voltar', aboutVersion:"Versão 67.9.13",aboutBrand:"DFCraft Web"
  },
  ja:{
   all:"すべて",home:"ホーム",downloads:"ダウンロード",add:"追加",settings:"設定",settingsTitle:" 設定",
@@ -1229,10 +1242,10 @@ const translations={
   authTitle:'アカウントにログイン',
   authIntro:'ログインするアカウントを選択してください。',
   authGoogle:'Googleで続行',
-  loginRequiredDownload:'Add-Onをダウンロードするには、先にログインしてください。',
+  loginRequiredDownload:'Add-Onをダウンロードするには、ゲストまたはGoogleログインを選択してください。',
   loginRequiredAdd:'Add-OnをDFCraftに追加するには、Googleアカウントでログインしてください。',
   loginRequiredReaction:'いいね・よくないねをするには、Googleアカウントでログインしてください。',
-  guestContinue:'ゲストとして続行', aboutVersion:"バージョン 67.9.12",aboutBrand:"DFCraft Web"
+  guestContinue:'ゲストとして続行', guestFormTitle:'ゲストとして入る', guestNameLabel:'ニックネーム', guestEmailLabel:'連絡先メール（任意）', guestNamePlaceholder:'ニックネームを入力', guestEmailPlaceholder:'連絡先メール（任意）', guestEnter:'ゲストとして入る', guestBack:'戻る', aboutVersion:"バージョン 67.9.13",aboutBrand:"DFCraft Web"
  }
 };
 
@@ -1648,6 +1661,16 @@ loadRemoteAddons();
       </button>
       <div id="socialLoginMsg" class="auth-msg"></div>
       <button type="button" class="auth-close" id="guestModeBtn" data-i18n="guestContinue" style="margin-top:12px">Lanjutkan sebagai Guest</button>
+      <div id="guestForm" style="display:none;margin-top:14px;padding:14px;border:1px solid #465366;border-radius:16px;background:#151e2b">
+        <div style="font-size:18px;font-weight:900;margin:0 0 10px" data-i18n="guestFormTitle">Masuk sebagai Guest</div>
+        <label for="guestNameInput" style="display:block;text-align:left;font-size:13px;color:#c5d0df" data-i18n="guestNameLabel">Nama panggilan</label>
+        <input id="guestNameInput" type="text" maxlength="32" autocomplete="nickname" data-i18n-placeholder="guestNamePlaceholder" placeholder="Masukkan nama panggilan">
+        <label for="guestEmailInput" style="display:block;text-align:left;font-size:13px;color:#c5d0df;margin-top:5px" data-i18n="guestEmailLabel">Email kontak (opsional)</label>
+        <input id="guestEmailInput" type="email" maxlength="120" autocomplete="off" data-i18n-placeholder="guestEmailPlaceholder" placeholder="Email kontak (opsional)">
+        <div id="guestFormMsg" class="auth-msg" role="status"></div>
+        <button type="button" class="social-login-btn" id="guestEnterBtn" style="background:#34445b;color:#fff;border:1px solid #566983" data-i18n="guestEnter">Masuk sebagai Guest</button>
+        <button type="button" class="auth-close" id="guestBackBtn" data-i18n="guestBack">Kembali</button>
+      </div>
 
       <!-- Form lama dipertahankan tersembunyi agar fungsi akun lama tidak merusak skrip lainnya. -->
       <div class="legacy-auth-hidden" aria-hidden="true">
@@ -1787,12 +1810,45 @@ loadRemoteAddons();
   });
   $('guestModeBtn').addEventListener('click',function(){
     if(currentAppwriteUser)return;
-    // Masuk langsung sebagai Guest: jangan tampilkan dialog login/peringatan.
+    $('guestForm').style.display='block';
+    $('guestModeBtn').style.display='none';
+    $('guestFormMsg').textContent='';
+    $('guestNameInput').focus();
+  });
+  $('guestBackBtn').addEventListener('click',function(){
+    $('guestForm').style.display='none';
+    $('guestModeBtn').style.display='block';
+    $('guestFormMsg').textContent='';
+  });
+  $('guestEnterBtn').addEventListener('click',function(){
+    if(currentAppwriteUser)return;
+    const name=$('guestNameInput').value.trim();
+    const email=$('guestEmailInput').value.trim();
+    const msg=$('guestFormMsg');
+    if(!name){
+      msg.textContent='Masukkan nama panggilan terlebih dahulu.';
+      $('guestNameInput').focus();
+      return;
+    }
+    if(name.length>32){
+      msg.textContent='Nama panggilan maksimal 32 karakter.';
+      return;
+    }
+    if(email && !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)){
+      msg.textContent='Format email kontak belum benar. Kosongkan jika tidak ingin mengisinya.';
+      $('guestEmailInput').focus();
+      return;
+    }
+    dfGuestName=name;
+    dfGuestEmail=email;
     dfSetGuestMode(true);
     $('authModal').style.display='none';
+    $('guestForm').style.display='none';
+    $('guestModeBtn').style.display='block';
     const notice=$('dfLoginNotice');
     if(notice) notice.classList.remove('show');
-    // Guest tetap dapat menjelajah dan mengunduh; fitur interaksi tetap meminta login.
+    const avatar=$('accountAvatar');
+    if(avatar) avatar.textContent=name.slice(0,2).toUpperCase();
     if(typeof render==='function') render();
   });
   if(new URLSearchParams(window.location.search).has('oauth_error')){
