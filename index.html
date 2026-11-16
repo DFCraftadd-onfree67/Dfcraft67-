@@ -416,6 +416,30 @@ body.downloads-page #title{margin-top:0}
   .grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
 </style>
+
+<style>
+/* DFCraft recommendation carousel: 6 cards on desktop, 3 on mobile */
+.recommend {
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+.recommend .recommend-image {
+  flex: 0 0 calc((100% - 26px) / 3) !important;
+  min-width: calc((100% - 26px) / 3) !important;
+  max-width: calc((100% - 26px) / 3) !important;
+}
+@media (min-width: 900px) {
+  .recommend {
+    gap: 18px !important;
+  }
+  .recommend .recommend-image {
+    flex: 0 0 calc((100% - 90px) / 6) !important;
+    min-width: calc((100% - 90px) / 6) !important;
+    max-width: calc((100% - 90px) / 6) !important;
+  }
+}
+</style>
+
 </head><body>
 <header class="top"><input id="search" class="search" placeholder="Cari..."><div class="avatar account-avatar" id="accountAvatar" title="Akun DFCraft">DF</div></header>
 
@@ -516,7 +540,7 @@ body.light .df-settings-social .df-social-icon{color:#555f6c}
 })();
 </script>
 
-<div class="about" data-i18n="about">DFCraft Web • Versi 67.9.20</div><div class="actions"><button class="cancel" id="closeSettings" data-i18n="close">Tutup</button></div></div></div><div id="modal" class="modal" style="display:none"><div class="box"><h2 data-i18n="addTitle">Tambah Add-On</h2><input id="name" data-i18n-placeholder="namePlaceholder" placeholder="Nama Add-On"><label class="file-label" for="image" data-i18n="chooseImage">Pilih gambar, GIF, atau video (maks. 10 detik)</label><input id="image" type="file" accept="image/*,video/*" style="display:none"><div id="imagePreview" class="image-preview" data-i18n="noImage">Belum ada media dipilih</div><input id="link" data-i18n-placeholder="mediafirePlaceholder" placeholder="Link MediaFire (harus sesuai kategori)"><div id="linkValidationStatus" style="margin-top:8px;font-size:13px;color:#aeb8c8"></div><select id="cat"><option>Add-Ons</option><option>Worlds</option><option>Texture Packs/Shader</option><option>Skin</option><option>Minecraft APK</option></select><div class="actions"><button class="cancel" id="cancel" data-i18n="cancel">Batal</button><button class="save" id="save" data-i18n="addButton">Tambahkan</button></div></div></div>
+<div class="about" data-i18n="about">DFCraft Web • Versi 67.9.21</div><div class="actions"><button class="cancel" id="closeSettings" data-i18n="close">Tutup</button></div></div></div><div id="modal" class="modal" style="display:none"><div class="box"><h2 data-i18n="addTitle">Tambah Add-On</h2><input id="name" data-i18n-placeholder="namePlaceholder" placeholder="Nama Add-On"><label class="file-label" for="image" data-i18n="chooseImage">Pilih gambar, GIF, atau video (maks. 10 detik)</label><input id="image" type="file" accept="image/*,video/*" style="display:none"><div id="imagePreview" class="image-preview" data-i18n="noImage">Belum ada media dipilih</div><input id="link" data-i18n-placeholder="mediafirePlaceholder" placeholder="Link MediaFire (harus sesuai kategori)"><div id="linkValidationStatus" style="margin-top:8px;font-size:13px;color:#aeb8c8"></div><select id="cat"><option>Add-Ons</option><option>Worlds</option><option>Texture Packs/Shader</option><option>Skin</option><option>Minecraft APK</option></select><div class="actions"><button class="cancel" id="cancel" data-i18n="cancel">Batal</button><button class="save" id="save" data-i18n="addButton">Tambahkan</button></div></div></div>
 <script>
 // Tidak ada Add-On contoh bawaan.
 let items=[];
@@ -953,7 +977,7 @@ function render(){
       const j=Math.floor(Math.random()*(i+1));
       [pool[i],pool[j]]=[pool[j],pool[i]];
     }
-    window.dfRecommendationItems=pool.slice(0,3);
+    window.dfRecommendationItems=pool.slice(0,18);
     window.dfRecommendationItemsInitialized=true;
   }
   const recItems=Array.isArray(window.dfRecommendationItems)?window.dfRecommendationItems:[];
@@ -1085,7 +1109,7 @@ $("add").onclick=()=>{
 };
 $("settings").onclick=()=>{$("settingsModal").style.display="flex";setActiveNav("settings");applyLanguage();};
 $("closeSettings").onclick=()=>$("settingsModal").style.display="none";
-const DFCraft_VERSION = "67.9.20"; // Ubah satu nilai ini setiap rilis DFCraft.
+const DFCraft_VERSION = "67.9.21"; // Ubah satu nilai ini setiap rilis DFCraft.
 const translations={
  id:{
   all:"SEMUA",home:"Beranda",downloads:"Unduhan",add:"Tambah",settings:"Pengaturan",settingsTitle:"Pengaturan",
@@ -1094,7 +1118,7 @@ const translations={
   addOns:"ADD-ONS",worlds:"Worlds",textures:"Texture Packs/Shader",skins:"Skin",minecraftApk:"Minecraft APK",
   download:"Download",downloadAgain:"Download Lagi",delete:"Hapus Add-On",deleteHistory:"Hapus",
   empty:"Belum ada item.",emptyDownloads:"Belum ada Add-On yang diunduh. Tekan tombol Download pada Add-On untuk memasukkannya ke sini.",
-  downloaded:"Diunduh",about:"DFCraft Web • Versi 67.9.20",confirmClear:"Hapus semua riwayat Unduhan?",
+  downloaded:"Diunduh",about:"DFCraft Web • Versi 67.9.21",confirmClear:"Hapus semua riwayat Unduhan?",
   confirmReset:"Reset semua data DFCraft? Data Add-On dan riwayat Unduhan akan dihapus.",
   searchCategory:"🔎 Pilih Kategori",searchAll:"Semua",searchAddOns:"Add-Ons",searchWorlds:"Worlds",
   searchTextures:"Texture Packs/Shader",searchSkin:"Skin",searchApk:"Minecraft APK",
@@ -1172,7 +1196,7 @@ const translations={
   addOns:"ADD-ONS",worlds:"Dunia",textures:"Texture Packs/Shader",skins:"Skin",minecraftApk:"APK Minecraft",
   download:"Muat Turun",downloadAgain:"Muat Turun Lagi",delete:"Padam Add-On",deleteHistory:"Padam",
   empty:"Tiada item lagi.",emptyDownloads:"Belum ada Add-On dimuat turun. Tekan Muat Turun pada Add-On untuk menambahkannya di sini.",
-  downloaded:"Dimuat turun",about:"DFCraft Web • Versi 67.9.20",confirmClear:"Padam semua sejarah muat turun?",
+  downloaded:"Dimuat turun",about:"DFCraft Web • Versi 67.9.21",confirmClear:"Padam semua sejarah muat turun?",
   confirmReset:"Tetapkan semula semua data DFCraft? Add-On dan sejarah muat turun akan dipadam.",
   searchCategory:"🔎 Pilih Kategori",searchAll:"Semua",searchAddOns:"Add-Ons",searchWorlds:"Dunia",
   searchTextures:"Texture Packs/Shader",searchSkin:"Skin",searchApk:"APK Minecraft",
@@ -1690,7 +1714,20 @@ function validateCategoryLink(link,cat){
   }
   return {ok:true,type:detected.type};
 }
-function startRecommendAuto(){const el=$("recommend");if(!el||page!=="home")return;if(recTimer)clearInterval(recTimer);if(!el.children.length)return;recTimer=setInterval(()=>{if(!el.children.length)return;const step=el.clientWidth*0.82;const max=el.scrollWidth-el.clientWidth;if(el.scrollLeft>=max-5)el.scrollTo({left:0,behavior:"smooth"});else el.scrollBy({left:step,behavior:"smooth"})},3500);}
+function startRecommendAuto(){
+  const el=$("recommend");
+  if(!el||page!=="home")return;
+  if(recTimer)clearInterval(recTimer);
+  if(!el.children.length)return;
+  recTimer=setInterval(()=>{
+    if(!el.children.length)return;
+    const max=el.scrollWidth-el.clientWidth;
+    if(max<=5)return;
+    const step=el.clientWidth*0.96;
+    if(el.scrollLeft>=max-8)el.scrollTo({left:0,behavior:"smooth"});
+    else el.scrollBy({left:step,behavior:"smooth"});
+  },3500);
+}
 applyLanguage();
 loadRemoteAddons();
 </script>
