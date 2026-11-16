@@ -457,7 +457,87 @@ body.downloads-page #title{margin-top:0}
 }
 </style>
 
+
+<style id="dfcraft-intro-style">
+  html.df-intro-active, html.df-intro-active body { overflow: hidden !important; }
+  #dfcraftIntro {
+    position: fixed; inset: 0; z-index: 9999999;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px; background:
+      radial-gradient(circle at 50% 38%, rgba(59,130,246,.22), transparent 38%),
+      linear-gradient(145deg, #0b1220, #101b2d 58%, #080d16);
+    color: #f5f8ff; opacity: 1; visibility: visible;
+    transition: opacity .55s ease, visibility .55s ease;
+  }
+  #dfcraftIntro.df-intro-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .df-intro-content { width: min(360px, 100%); text-align: center; }
+  .df-intro-logo {
+    width: 92px; height: 92px; margin: 0 auto 22px; border-radius: 26px;
+    display: grid; place-items: center; font-size: 38px; font-weight: 1000;
+    letter-spacing: -3px; color: #10213a;
+    background: linear-gradient(145deg, #c5e2ff, #5b9be8);
+    box-shadow: 0 14px 42px rgba(59,130,246,.28);
+    animation: dfIntroFloat 1.8s ease-in-out infinite;
+  }
+  .df-intro-title { margin: 0; font-size: 30px; font-weight: 1000; letter-spacing: 1px; }
+  .df-intro-subtitle { margin: 9px 0 28px; color: #aebed3; font-size: 14px; }
+  .df-intro-track { height: 8px; width: 100%; overflow: hidden; border-radius: 20px; background: #29374b; }
+  .df-intro-progress {
+    height: 100%; width: 0; border-radius: inherit;
+    background: linear-gradient(90deg, #60a5fa, #b9dcff);
+    box-shadow: 0 0 16px rgba(96,165,250,.45);
+    animation: dfIntroProgress 4s ease-out forwards;
+  }
+  .df-intro-status { margin-top: 12px; color: #91a5bf; font-size: 12px; letter-spacing: .3px; }
+  @keyframes dfIntroProgress { 0% { width: 0; } 70% { width: 82%; } 100% { width: 100%; } }
+  @keyframes dfIntroFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+  @media (prefers-reduced-motion: reduce) {
+    .df-intro-logo { animation: none; }
+    .df-intro-progress { animation-duration: 1s; }
+    #dfcraftIntro { transition: none; }
+  }
+</style>
+
+<script id="dfcraft-intro-controller">
+(function () {
+  document.documentElement.classList.add('df-intro-active');
+  var startedAt = Date.now();
+  var minimumDuration = 4000;
+  function waitForWindowLoad() {
+    if (document.readyState === 'complete') return Promise.resolve();
+    return new Promise(function (resolve) {
+      window.addEventListener('load', resolve, { once: true });
+    });
+  }
+  function waitForInitialData() {
+    // Promise ini diisi oleh proses pemuatan Add-On Appwrite di script utama.
+    return Promise.resolve(window.dfInitialDataReady).catch(function () {});
+  }
+  Promise.all([waitForWindowLoad(), waitForInitialData()]).then(function () {
+    var remaining = Math.max(0, minimumDuration - (Date.now() - startedAt));
+    window.setTimeout(function () {
+      var intro = document.getElementById('dfcraftIntro');
+      if (!intro) return;
+      intro.classList.add('df-intro-hidden');
+      document.documentElement.classList.remove('df-intro-active');
+      window.setTimeout(function () { intro.remove(); }, 600);
+    }, remaining);
+  });
+})();
+</script>
+
 </head><body>
+
+<div id="dfcraftIntro" role="status" aria-live="polite" aria-label="Memuat DFCraft">
+  <div class="df-intro-content">
+    <div class="df-intro-logo" aria-hidden="true">DF</div>
+    <h1 class="df-intro-title">DFCRAFT</h1>
+    <p class="df-intro-subtitle">Selamat datang di dunia Add-On Minecraft</p>
+    <div class="df-intro-track" aria-hidden="true"><div class="df-intro-progress"></div></div>
+    <div class="df-intro-status">Menyiapkan DFCraft...</div>
+  </div>
+</div>
+
 <header class="top"><input id="search" class="search" placeholder="Cari..."><div class="avatar account-avatar" id="accountAvatar" title="Akun DFCraft">DF</div></header>
 
 <section class="recommend-wrap"><div class="recommend-title"><svg class="df-ui-icon df-star-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2.5 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3.1-5.8 3.1 1.1-6.5-4.7-4.6 6.5-.9L12 2.5Z"/></svg><span data-i18n="recommend">Add-On Rekomendasi</span></div><div id="recommend" class="recommend"></div></section><div class="chips"><button class="chip" data-cat="Semua"><svg class="df-ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5v-9Zm9-2.2L6.1 8.5 12 11.4l5.9-2.9L12 5.3Zm-7 5v5l6 3v-5l-6-3Zm8 8 6-3v-5l-6 3v5Z"/></svg><span data-i18n="all">Semua</span></button><button class="chip" data-cat="Add-Ons"><svg class="df-ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3a3 3 0 0 0-3 3v2H4a2 2 0 0 0-2 2v3h5a2 2 0 1 1 0 4H2v2a2 2 0 0 0 2 2h4v-2a3 3 0 1 1 6 0v2h6a2 2 0 0 0 2-2v-4h-2a3 3 0 1 1 0-6h2v-3a2 2 0 0 0-2-2h-6v2a3 3 0 1 1-6 0V3Z"/></svg><span data-i18n="addOns">Add-Ons</span></button><button class="chip" data-cat="Worlds"><svg class="df-ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3.5 9h17M3.5 15h17M12 3c2.3 2.4 3.4 5.4 3.4 9s-1.1 6.6-3.4 9c-2.3-2.4-3.4-5.4-3.4-9S9.7 5.4 12 3Z" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><span data-i18n="worlds">Worlds</span></button><button class="chip" data-cat="Texture Packs"><svg class="df-ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18h1.2a2 2 0 0 0 1.5-3.3 1.5 1.5 0 0 1 1.2-2.5H18a3 3 0 0 0 3-3C21 7.1 17 3 12 3Zm-4 10a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm3-4a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm5 1a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z"/></svg><span data-i18n="textures">Texture Packs/Shader</span></button><button class="chip" data-cat="Skin"><svg class="df-ui-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21v-2a8 8 0 0 1 16 0v2H4Z" fill="none" stroke="currentColor" stroke-width="2"/></svg><span data-i18n="skins">Skin</span></button><button class="chip" data-cat="Minecraft APK"><svg class="df-ui-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 18h4" stroke="currentColor" stroke-width="2"/></svg><span data-i18n="minecraftApk">Minecraft APK</span></button></div>
@@ -557,7 +637,7 @@ body.light .df-settings-social .df-social-icon{color:#555f6c}
 })();
 </script>
 
-<div class="about" data-i18n="about">DFCraft Web • Versi 67.9.24</div><div class="actions"><button class="cancel" id="closeSettings" data-i18n="close">Tutup</button></div></div></div><div id="modal" class="modal" style="display:none"><div class="box"><h2 data-i18n="addTitle">Tambah Add-On</h2><input id="name" data-i18n-placeholder="namePlaceholder" placeholder="Nama Add-On"><label class="file-label" for="image" data-i18n="chooseImage">Pilih gambar, GIF, atau video (maks. 10 detik)</label><input id="image" type="file" accept="image/*,video/*" style="display:none"><div id="imagePreview" class="image-preview" data-i18n="noImage">Belum ada media dipilih</div><input id="link" data-i18n-placeholder="mediafirePlaceholder" placeholder="Link MediaFire (harus sesuai kategori)"><div id="linkValidationStatus" style="margin-top:8px;font-size:13px;color:#aeb8c8"></div><select id="cat"><option>Add-Ons</option><option>Worlds</option><option>Texture Packs/Shader</option><option>Skin</option><option>Minecraft APK</option></select><div class="actions"><button class="cancel" id="cancel" data-i18n="cancel">Batal</button><button class="save" id="save" data-i18n="addButton">Tambahkan</button></div></div></div>
+<div class="about" data-i18n="about">DFCraft Web • Versi 67.9.25</div><div class="actions"><button class="cancel" id="closeSettings" data-i18n="close">Tutup</button></div></div></div><div id="modal" class="modal" style="display:none"><div class="box"><h2 data-i18n="addTitle">Tambah Add-On</h2><input id="name" data-i18n-placeholder="namePlaceholder" placeholder="Nama Add-On"><label class="file-label" for="image" data-i18n="chooseImage">Pilih gambar, GIF, atau video (maks. 10 detik)</label><input id="image" type="file" accept="image/*,video/*" style="display:none"><div id="imagePreview" class="image-preview" data-i18n="noImage">Belum ada media dipilih</div><input id="link" data-i18n-placeholder="mediafirePlaceholder" placeholder="Link MediaFire (harus sesuai kategori)"><div id="linkValidationStatus" style="margin-top:8px;font-size:13px;color:#aeb8c8"></div><select id="cat"><option>Add-Ons</option><option>Worlds</option><option>Texture Packs/Shader</option><option>Skin</option><option>Minecraft APK</option></select><div class="actions"><button class="cancel" id="cancel" data-i18n="cancel">Batal</button><button class="save" id="save" data-i18n="addButton">Tambahkan</button></div></div></div>
 <script>
 // Tidak ada Add-On contoh bawaan.
 let items=[];
@@ -1751,7 +1831,7 @@ function startRecommendAuto(){
   },3500);
 }
 applyLanguage();
-loadRemoteAddons();
+window.dfInitialDataReady = loadRemoteAddons();
 </script>
 
 
