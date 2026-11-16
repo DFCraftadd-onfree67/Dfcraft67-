@@ -365,6 +365,57 @@ body.downloads-page #title{margin-top:0}
 @media(max-width:420px){.addon-detail-title{font-size:19px}.addon-detail-image{max-height:52vh}.addon-stat-value{font-size:17px}.addon-stat-label{font-size:10px}}
 </style>
 
+
+<style>
+/* DFCraft responsive desktop layout — mobile layout remains unchanged. */
+@media (min-width: 900px) {
+  body { padding-bottom: 96px; }
+  .top, .recommend-wrap, .chips, main.section {
+    width: min(100% - 64px, 1480px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .top { padding: 26px 0 22px; gap: 18px; }
+  .search { font-size: 20px; padding: 18px 24px; }
+  .avatar { width: 60px; height: 60px; min-width: 60px; min-height: 60px; flex-basis: 60px; }
+  .recommend-wrap { padding: 0 0 26px; }
+  .recommend-title, .title { font-size: 26px; }
+  .recommend { gap: 18px; }
+  .recommend .recommend-image { min-width: 38%; max-width: 38%; border-radius: 18px; }
+  .recommend .recommend-image img { aspect-ratio: 1.9; }
+  .chips { padding: 0 0 26px; gap: 13px; flex-wrap: wrap; overflow: visible; }
+  .chip { font-size: 15px; padding: 13px 20px; }
+  .section { padding: 0; }
+  .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .card, .download-card { border-radius: 18px; }
+  .card img, .download-card img { aspect-ratio: 1.55; }
+  .body, .download-body { padding: 16px; }
+  .name, .download-name { font-size: 18px; }
+  .meta, .download-date { font-size: 14px; }
+  .download, .delete, .download-actions a, .download-actions button {
+    font-size: 14px; padding: 12px;
+  }
+  .bottom { height: 88px; }
+  .nav { min-width: 110px; font-size: 14px; }
+  .nav b { font-size: 30px; }
+  .box { max-width: 620px; padding: 28px; }
+  .settings-box { max-width: 760px; max-height: 88vh; }
+  .settings-box h2 { font-size: 30px; }
+  .settings-box .setting-label { font-size: 15px; margin-top: 16px; }
+  .settings-box select, .settings-box input, .setting-color,
+  .setting-action, .settings-action { font-size: 16px; min-height: 52px; }
+  .auth-box { width: min(600px, 92vw); max-height: 88vh; padding: 28px; }
+  .auth-title { font-size: 30px; }
+  .modal { padding: 32px; }
+}
+@media (min-width: 1300px) {
+  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; }
+  .recommend .recommend-image { min-width: 32%; max-width: 32%; }
+}
+@media (min-width: 1700px) {
+  .grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+</style>
 </head><body>
 <header class="top"><input id="search" class="search" placeholder="Cari..."><div class="avatar account-avatar" id="accountAvatar" title="Akun DFCraft">DF</div></header>
 
@@ -465,7 +516,7 @@ body.light .df-settings-social .df-social-icon{color:#555f6c}
 })();
 </script>
 
-<div class="about" data-i18n="about">DFCraft Web • Versi 67.9.18</div><div class="actions"><button class="cancel" id="closeSettings" data-i18n="close">Tutup</button></div></div></div><div id="modal" class="modal" style="display:none"><div class="box"><h2 data-i18n="addTitle">Tambah Add-On</h2><input id="name" data-i18n-placeholder="namePlaceholder" placeholder="Nama Add-On"><label class="file-label" for="image" data-i18n="chooseImage">Pilih gambar, GIF, atau video (maks. 10 detik)</label><input id="image" type="file" accept="image/*,video/*" style="display:none"><div id="imagePreview" class="image-preview" data-i18n="noImage">Belum ada media dipilih</div><input id="link" data-i18n-placeholder="mediafirePlaceholder" placeholder="Link MediaFire (harus sesuai kategori)"><div id="linkValidationStatus" style="margin-top:8px;font-size:13px;color:#aeb8c8"></div><select id="cat"><option>Add-Ons</option><option>Worlds</option><option>Texture Packs/Shader</option><option>Skin</option><option>Minecraft APK</option></select><div class="actions"><button class="cancel" id="cancel" data-i18n="cancel">Batal</button><button class="save" id="save" data-i18n="addButton">Tambahkan</button></div></div></div>
+<div class="about" data-i18n="about">DFCraft Web • Versi 67.9.20</div><div class="actions"><button class="cancel" id="closeSettings" data-i18n="close">Tutup</button></div></div></div><div id="modal" class="modal" style="display:none"><div class="box"><h2 data-i18n="addTitle">Tambah Add-On</h2><input id="name" data-i18n-placeholder="namePlaceholder" placeholder="Nama Add-On"><label class="file-label" for="image" data-i18n="chooseImage">Pilih gambar, GIF, atau video (maks. 10 detik)</label><input id="image" type="file" accept="image/*,video/*" style="display:none"><div id="imagePreview" class="image-preview" data-i18n="noImage">Belum ada media dipilih</div><input id="link" data-i18n-placeholder="mediafirePlaceholder" placeholder="Link MediaFire (harus sesuai kategori)"><div id="linkValidationStatus" style="margin-top:8px;font-size:13px;color:#aeb8c8"></div><select id="cat"><option>Add-Ons</option><option>Worlds</option><option>Texture Packs/Shader</option><option>Skin</option><option>Minecraft APK</option></select><div class="actions"><button class="cancel" id="cancel" data-i18n="cancel">Batal</button><button class="save" id="save" data-i18n="addButton">Tambahkan</button></div></div></div>
 <script>
 // Tidak ada Add-On contoh bawaan.
 let items=[];
@@ -1034,7 +1085,7 @@ $("add").onclick=()=>{
 };
 $("settings").onclick=()=>{$("settingsModal").style.display="flex";setActiveNav("settings");applyLanguage();};
 $("closeSettings").onclick=()=>$("settingsModal").style.display="none";
-const DFCraft_VERSION = "67.9.18"; // Ubah satu nilai ini setiap rilis DFCraft.
+const DFCraft_VERSION = "67.9.20"; // Ubah satu nilai ini setiap rilis DFCraft.
 const translations={
  id:{
   all:"SEMUA",home:"Beranda",downloads:"Unduhan",add:"Tambah",settings:"Pengaturan",settingsTitle:"Pengaturan",
@@ -1043,7 +1094,7 @@ const translations={
   addOns:"ADD-ONS",worlds:"Worlds",textures:"Texture Packs/Shader",skins:"Skin",minecraftApk:"Minecraft APK",
   download:"Download",downloadAgain:"Download Lagi",delete:"Hapus Add-On",deleteHistory:"Hapus",
   empty:"Belum ada item.",emptyDownloads:"Belum ada Add-On yang diunduh. Tekan tombol Download pada Add-On untuk memasukkannya ke sini.",
-  downloaded:"Diunduh",about:"DFCraft Web • Versi 67.9.18",confirmClear:"Hapus semua riwayat Unduhan?",
+  downloaded:"Diunduh",about:"DFCraft Web • Versi 67.9.20",confirmClear:"Hapus semua riwayat Unduhan?",
   confirmReset:"Reset semua data DFCraft? Data Add-On dan riwayat Unduhan akan dihapus.",
   searchCategory:"🔎 Pilih Kategori",searchAll:"Semua",searchAddOns:"Add-Ons",searchWorlds:"Worlds",
   searchTextures:"Texture Packs/Shader",searchSkin:"Skin",searchApk:"Minecraft APK",
@@ -1121,7 +1172,7 @@ const translations={
   addOns:"ADD-ONS",worlds:"Dunia",textures:"Texture Packs/Shader",skins:"Skin",minecraftApk:"APK Minecraft",
   download:"Muat Turun",downloadAgain:"Muat Turun Lagi",delete:"Padam Add-On",deleteHistory:"Padam",
   empty:"Tiada item lagi.",emptyDownloads:"Belum ada Add-On dimuat turun. Tekan Muat Turun pada Add-On untuk menambahkannya di sini.",
-  downloaded:"Dimuat turun",about:"DFCraft Web • Versi 67.9.18",confirmClear:"Padam semua sejarah muat turun?",
+  downloaded:"Dimuat turun",about:"DFCraft Web • Versi 67.9.20",confirmClear:"Padam semua sejarah muat turun?",
   confirmReset:"Tetapkan semula semua data DFCraft? Add-On dan sejarah muat turun akan dipadam.",
   searchCategory:"🔎 Pilih Kategori",searchAll:"Semua",searchAddOns:"Add-Ons",searchWorlds:"Dunia",
   searchTextures:"Texture Packs/Shader",searchSkin:"Skin",searchApk:"APK Minecraft",
