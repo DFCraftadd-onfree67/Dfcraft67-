@@ -613,6 +613,58 @@ body.downloads-page #title{margin-top:0}
   }
 </style>
 
+
+<style id="dfcraft-notice-style">
+  #dfcraftNotice {
+    position:fixed; inset:0; z-index:100000;
+    display:none; align-items:center; justify-content:center;
+    padding:22px; background:rgba(0,0,0,.72);
+    backdrop-filter:blur(5px); -webkit-backdrop-filter:blur(5px);
+  }
+  #dfcraftNotice.show { display:flex; }
+  #dfcraftNotice .notice-panel {
+    width:min(100%,430px); padding:24px 22px 18px;
+    color:var(--text-color,#f4f7fb);
+    background:#1d2530; border:1px solid rgba(255,255,255,.12);
+    border-radius:22px; box-shadow:0 22px 70px rgba(0,0,0,.48);
+    animation:dfNoticeIn .18s ease-out;
+  }
+  #dfcraftNotice .notice-head {
+    display:flex; align-items:center; gap:13px; margin-bottom:15px;
+  }
+  #dfcraftNotice .notice-icon {
+    flex:0 0 44px; width:44px; height:44px; display:grid;
+    place-items:center; border-radius:14px; font-size:24px;
+    color:#ffcf65; background:rgba(255,190,70,.13);
+  }
+  #dfcraftNotice .notice-title { margin:0; font-size:20px; font-weight:800; }
+  #dfcraftNotice .notice-message {
+    margin:0; color:#d5dce6; font-size:16px; line-height:1.55;
+    overflow-wrap:anywhere; white-space:pre-line;
+  }
+  #dfcraftNotice .notice-actions {
+    display:flex; justify-content:flex-end; margin-top:23px;
+  }
+  #dfcraftNotice .notice-button {
+    min-width:112px; min-height:46px; padding:10px 20px;
+    border:0; border-radius:13px; color:#08151a;
+    background:var(--primary-color,#00dfe5); font-size:15px;
+    font-weight:800; cursor:pointer;
+  }
+  #dfcraftNotice .notice-button:focus-visible {
+    outline:3px solid #fff; outline-offset:3px;
+  }
+  body.light #dfcraftNotice .notice-panel { background:#fff; color:#17202b; }
+  body.light #dfcraftNotice .notice-message { color:#4b5664; }
+  @keyframes dfNoticeIn {
+    from { opacity:0; transform:translateY(8px) scale(.98); }
+    to { opacity:1; transform:translateY(0) scale(1); }
+  }
+  @media(prefers-reduced-motion:reduce) {
+    #dfcraftNotice .notice-panel { animation:none; }
+  }
+</style>
+
 </head><body>
 
 <div id="dfcraftIntro" role="status" aria-live="polite" aria-label="Memuat DFCraft">
@@ -724,7 +776,7 @@ body.light .df-settings-social .df-social-icon{color:#555f6c}
 })();
 </script>
 
-<div class="about" data-i18n="about">DFCraft Web • Versi 67.9.31</div><div class="actions"><button class="cancel" id="closeSettings" data-i18n="close">Tutup</button></div></div></div><div id="modal" class="modal" style="display:none"><div class="box"><h2 data-i18n="addTitle">Tambah Add-On</h2><input id="name" data-i18n-placeholder="namePlaceholder" placeholder="Nama Add-On"><label class="file-label" for="image" data-i18n="chooseImage">Pilih gambar, GIF, atau video (maks. 10 detik)</label><input id="image" type="file" accept="image/*,video/*" style="display:none"><div id="imagePreview" class="image-preview" data-i18n="noImage">Belum ada media dipilih</div><input id="link" data-i18n-placeholder="mediafirePlaceholder" placeholder="Link MediaFire (harus sesuai kategori)"><div id="linkValidationStatus" style="margin-top:8px;font-size:13px;color:#aeb8c8"></div><select id="cat"><option>Add-Ons</option><option>Worlds</option><option>Texture Packs/Shader</option><option>Skin</option><option>Minecraft APK</option></select><div class="actions"><button class="cancel" id="cancel" data-i18n="cancel">Batal</button><button class="save" id="save" data-i18n="addButton">Tambahkan</button></div></div></div>
+<div class="about" data-i18n="about">DFCraft Web • Versi 67.9.32</div><div class="actions"><button class="cancel" id="closeSettings" data-i18n="close">Tutup</button></div></div></div><div id="modal" class="modal" style="display:none"><div class="box"><h2 data-i18n="addTitle">Tambah Add-On</h2><input id="name" data-i18n-placeholder="namePlaceholder" placeholder="Nama Add-On"><label class="file-label" for="image" data-i18n="chooseImage">Pilih gambar, GIF, atau video (maks. 10 detik)</label><input id="image" type="file" accept="image/*,video/*" style="display:none"><div id="imagePreview" class="image-preview" data-i18n="noImage">Belum ada media dipilih</div><input id="link" data-i18n-placeholder="mediafirePlaceholder" placeholder="Link MediaFire (harus sesuai kategori)"><div id="linkValidationStatus" style="margin-top:8px;font-size:13px;color:#aeb8c8"></div><select id="cat"><option>Add-Ons</option><option>Worlds</option><option>Texture Packs/Shader</option><option>Skin</option><option>Minecraft APK</option></select><div class="actions"><button class="cancel" id="cancel" data-i18n="cancel">Batal</button><button class="save" id="save" data-i18n="addButton">Tambahkan</button></div></div></div>
 <script>
 // Tidak ada Add-On contoh bawaan.
 let items=[];
@@ -1341,7 +1393,7 @@ $("settings").onclick=()=>{
 };
 $("closeSettings").onclick=()=>{closeWorkspacePages();page="home";current="Semua";render()};
 
-const DFCraft_VERSION = "67.9.31"; // Ubah satu nilai ini setiap rilis DFCraft.
+const DFCraft_VERSION = "67.9.32"; // Ubah satu nilai ini setiap rilis DFCraft.
 const translations={
  id:{
   all:"SEMUA",home:"Beranda",downloads:"Unduhan",add:"Tambah",settings:"Pengaturan",settingsTitle:"Pengaturan",
@@ -1842,13 +1894,13 @@ $("save").onclick=async()=>{
 
     if(!checkResult.ok){
       if(checkResult.code==="BLOCKED_PATTERN"){
-        alert("🚫 Add-On tidak dapat ditambahkan.\n\nPemeriksa Konten DFCraft menemukan pola yang diblokir di dalam file.");
+        showDFCraftNotice("Add-On tidak dapat ditambahkan","Pemeriksa Konten DFCraft menemukan pola yang diblokir di dalam file. Demi keamanan, Add-On ini tidak ditambahkan.","🚫");
       }else if(checkResult.code==="DOWNLOAD_FILE_NOT_FOUND"){
-        alert("⚠️ Add-On belum dapat ditambahkan.\n\nFile asli dari MediaFire belum berhasil diambil untuk diperiksa. Silakan pastikan link MediaFire masih aktif.");
+        showDFCraftNotice("File belum dapat diperiksa","File asli dari MediaFire belum berhasil diambil untuk diperiksa. Pastikan link MediaFire masih aktif, lalu coba lagi.","⚠");
       }else if(checkResult.code==="CHECKER_CONNECTION_ERROR"){
-        alert("⚠️ Pemeriksa Konten DFCraft tidak dapat dihubungi.\n\n" + checkResult.message + "\n\nAdd-On tidak ditambahkan demi keamanan.");
+        showDFCraftNotice("Pemeriksa konten tidak tersedia",checkResult.message + "\n\nAdd-On tidak ditambahkan demi keamanan.","⚠");
       }else{
-        alert("❌ Pemeriksaan konten gagal.\n\nAdd-On tidak ditambahkan demi keamanan.\n\n"+checkResult.message);
+        showDFCraftNotice("Pemeriksaan konten gagal","Add-On tidak ditambahkan demi keamanan.\n\n"+checkResult.message,"✕");
       }
       return;
     }
@@ -2572,6 +2624,48 @@ window.dfInitialDataReady = loadRemoteAddons();
     justify-content:flex-end;
   }
 </style>
+
+
+<div id="dfcraftNotice" role="dialog" aria-modal="true" aria-labelledby="dfcraftNoticeTitle" aria-describedby="dfcraftNoticeMessage">
+  <div class="notice-panel">
+    <div class="notice-head">
+      <div class="notice-icon" id="dfcraftNoticeIcon" aria-hidden="true">⚠</div>
+      <h2 class="notice-title" id="dfcraftNoticeTitle">Pemberitahuan DFCraft</h2>
+    </div>
+    <p class="notice-message" id="dfcraftNoticeMessage"></p>
+    <div class="notice-actions">
+      <button class="notice-button" id="dfcraftNoticeOk" type="button">Mengerti</button>
+    </div>
+  </div>
+</div>
+<script id="dfcraft-notice-script">
+(function(){
+  function closeNotice(){
+    const el=document.getElementById("dfcraftNotice");
+    if(el) el.classList.remove("show");
+  }
+  window.showDFCraftNotice=function(title,message,icon){
+    const el=document.getElementById("dfcraftNotice");
+    if(!el) return window.alert((title?title+"\\n\\n":"")+message);
+    document.getElementById("dfcraftNoticeTitle").textContent=title||"Pemberitahuan DFCraft";
+    document.getElementById("dfcraftNoticeMessage").textContent=message||"";
+    document.getElementById("dfcraftNoticeIcon").textContent=icon||"⚠";
+    el.classList.add("show");
+    document.getElementById("dfcraftNoticeOk").focus();
+  };
+  document.addEventListener("DOMContentLoaded",function(){
+    const ok=document.getElementById("dfcraftNoticeOk");
+    const overlay=document.getElementById("dfcraftNotice");
+    if(ok) ok.addEventListener("click",closeNotice);
+    if(overlay) overlay.addEventListener("click",function(e){
+      if(e.target===overlay) closeNotice();
+    });
+    document.addEventListener("keydown",function(e){
+      if(e.key==="Escape" && overlay && overlay.classList.contains("show")) closeNotice();
+    });
+  });
+})();
+</script>
 
 </body></html>
 <style>
