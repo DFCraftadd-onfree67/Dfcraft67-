@@ -526,6 +526,93 @@ body.downloads-page #title{margin-top:0}
 })();
 </script>
 
+
+<style id="dfcraft-inline-pages">
+  /* Halaman Tambah dan Pengaturan menyatu dengan alur konten, seperti Unduhan. */
+  body.add-page .recommend-wrap,
+  body.add-page .chips,
+  body.add-page main.section,
+  body.add-page .search-mode-results,
+  body.settings-page .recommend-wrap,
+  body.settings-page .chips,
+  body.settings-page main.section,
+  body.settings-page .search-mode-results { display:none !important; }
+
+  body.add-page #modal,
+  body.settings-page #settingsModal {
+    display:block !important;
+    position:static !important;
+    inset:auto !important;
+    z-index:auto !important;
+    width:100% !important;
+    max-width:none !important;
+    margin:0 !important;
+    padding:0 18px 28px !important;
+    overflow:visible !important;
+    background:transparent !important;
+    align-items:initial !important;
+    justify-content:initial !important;
+  }
+  body.add-page #modal .box,
+  body.settings-page #settingsModal .box {
+    display:block;
+    width:100% !important;
+    max-width:none !important;
+    max-height:none !important;
+    overflow:visible !important;
+    margin:0 !important;
+    padding:0 !important;
+    border:0 !important;
+    border-radius:0 !important;
+    background:transparent !important;
+    box-shadow:none !important;
+  }
+  body.add-page #modal h2,
+  body.settings-page #settingsModal h2 {
+    margin:5px 0 18px;
+    padding:0;
+    font-size:20px;
+    font-weight:700;
+  }
+  body.add-page #modal input:not([type="file"]),
+  body.add-page #modal select,
+  body.add-page #modal .file-label,
+  body.settings-page #settingsModal select,
+  body.settings-page #settingsModal .setting-color {
+    min-height:52px;
+    border-radius:12px;
+    font-size:16px;
+  }
+  body.settings-page #settingsModal .setting-label {
+    font-size:15px;
+    margin:16px 0 7px;
+  }
+  body.settings-page #settingsModal .setting-action,
+  body.settings-page #settingsModal .settings-action {
+    min-height:52px;
+    border-radius:12px;
+  }
+  body.settings-page #settingsModal .settings-box .about {
+    margin-top:18px;
+  }
+  body.add-page #modal .actions,
+  body.settings-page #settingsModal .actions {
+    display:flex;
+    gap:10px;
+  }
+  body.add-page #modal .actions button,
+  body.settings-page #settingsModal .actions button {
+    min-height:50px;
+    border-radius:12px;
+  }
+  @media(max-width:480px) {
+    body.add-page #modal,
+    body.settings-page #settingsModal {
+      padding:0 18px 28px !important;
+    }
+  }
+</style>
+
 </head><body>
 
 <div id="dfcraftIntro" role="status" aria-live="polite" aria-label="Memuat DFCraft">
@@ -637,7 +724,7 @@ body.light .df-settings-social .df-social-icon{color:#555f6c}
 })();
 </script>
 
-<div class="about" data-i18n="about">DFCraft Web • Versi 67.9.25</div><div class="actions"><button class="cancel" id="closeSettings" data-i18n="close">Tutup</button></div></div></div><div id="modal" class="modal" style="display:none"><div class="box"><h2 data-i18n="addTitle">Tambah Add-On</h2><input id="name" data-i18n-placeholder="namePlaceholder" placeholder="Nama Add-On"><label class="file-label" for="image" data-i18n="chooseImage">Pilih gambar, GIF, atau video (maks. 10 detik)</label><input id="image" type="file" accept="image/*,video/*" style="display:none"><div id="imagePreview" class="image-preview" data-i18n="noImage">Belum ada media dipilih</div><input id="link" data-i18n-placeholder="mediafirePlaceholder" placeholder="Link MediaFire (harus sesuai kategori)"><div id="linkValidationStatus" style="margin-top:8px;font-size:13px;color:#aeb8c8"></div><select id="cat"><option>Add-Ons</option><option>Worlds</option><option>Texture Packs/Shader</option><option>Skin</option><option>Minecraft APK</option></select><div class="actions"><button class="cancel" id="cancel" data-i18n="cancel">Batal</button><button class="save" id="save" data-i18n="addButton">Tambahkan</button></div></div></div>
+<div class="about" data-i18n="about">DFCraft Web • Versi 67.9.30</div><div class="actions"><button class="cancel" id="closeSettings" data-i18n="close">Tutup</button></div></div></div><div id="modal" class="modal" style="display:none"><div class="box"><h2 data-i18n="addTitle">Tambah Add-On</h2><input id="name" data-i18n-placeholder="namePlaceholder" placeholder="Nama Add-On"><label class="file-label" for="image" data-i18n="chooseImage">Pilih gambar, GIF, atau video (maks. 10 detik)</label><input id="image" type="file" accept="image/*,video/*" style="display:none"><div id="imagePreview" class="image-preview" data-i18n="noImage">Belum ada media dipilih</div><input id="link" data-i18n-placeholder="mediafirePlaceholder" placeholder="Link MediaFire (harus sesuai kategori)"><div id="linkValidationStatus" style="margin-top:8px;font-size:13px;color:#aeb8c8"></div><select id="cat"><option>Add-Ons</option><option>Worlds</option><option>Texture Packs/Shader</option><option>Skin</option><option>Minecraft APK</option></select><div class="actions"><button class="cancel" id="cancel" data-i18n="cancel">Batal</button><button class="save" id="save" data-i18n="addButton">Tambahkan</button></div></div></div>
 <script>
 // Tidak ada Add-On contoh bawaan.
 let items=[];
@@ -1047,7 +1134,29 @@ function renderSearchMode(q){
   
 }
 function render(){
-  if(page!=="home") {
+  // Pertahankan halaman Tambah/Pengaturan saat applyLanguage() memanggil render().
+  if(page==="add"){
+    document.body.classList.remove("searching","downloads-page","settings-page");
+    document.body.classList.add("add-page");
+    $("settingsModal").style.display="none";
+    $("modal").style.display="block";
+    setActiveNav("add");
+    $("title").textContent=t("addTitle");
+    return;
+  }
+  if(page==="settings"){
+    document.body.classList.remove("searching","downloads-page","add-page");
+    document.body.classList.add("settings-page");
+    $("modal").style.display="none";
+    $("settingsModal").style.display="block";
+    setActiveNav("settings");
+    $("title").textContent=t("settingsTitle");
+    return;
+  }
+  document.body.classList.remove("add-page","settings-page");
+  $("modal").style.display="none";
+  $("settingsModal").style.display="none";
+  if(page==="downloads") {
     document.body.classList.remove("searching");
     return renderDownloads();
   }
@@ -1199,19 +1308,40 @@ $("searchCategoryClose").onclick=()=>{$("searchCategoryModal").style.display="no
 $("searchCategoryModal").onclick=e=>{
   if(e.target===$("searchCategoryModal")) $("searchCategoryModal").style.display="none";
 };
-$("home").onclick=()=>{page="home";current="Semua";render()};
-$("downloads").onclick=()=>{page="downloads";renderDownloads()};
+function closeWorkspacePages(){
+  document.body.classList.remove("add-page","settings-page");
+  $("modal").style.display="none";
+  $("settingsModal").style.display="none";
+}
+$("home").onclick=()=>{closeWorkspacePages();page="home";current="Semua";render()};
+$("downloads").onclick=()=>{closeWorkspacePages();page="downloads";renderDownloads()};
 $("add").onclick=()=>{
-  setActiveNav("add");
   if(!currentAppwriteUser){
     window.showDFLoginNotice(t("loginRequiredAdd"));
     return;
   }
-  $("modal").style.display="flex";
+  page="add";
+  document.body.classList.remove("searching","downloads-page","settings-page");
+  document.body.classList.add("add-page");
+  $("settingsModal").style.display="none";
+  $("modal").style.display="block";
+  setActiveNav("add");
+  applyLanguage();
+  window.scrollTo(0,0);
 };
-$("settings").onclick=()=>{$("settingsModal").style.display="flex";setActiveNav("settings");applyLanguage();};
-$("closeSettings").onclick=()=>$("settingsModal").style.display="none";
-const DFCraft_VERSION = "67.9.26"; // Ubah satu nilai ini setiap rilis DFCraft.
+$("settings").onclick=()=>{
+  page="settings";
+  document.body.classList.remove("searching","downloads-page","add-page");
+  document.body.classList.add("settings-page");
+  $("modal").style.display="none";
+  $("settingsModal").style.display="block";
+  setActiveNav("settings");
+  applyLanguage();
+  window.scrollTo(0,0);
+};
+$("closeSettings").onclick=()=>{closeWorkspacePages();page="home";current="Semua";render()};
+
+const DFCraft_VERSION = "67.9.30"; // Ubah satu nilai ini setiap rilis DFCraft.
 const translations={
  id:{
   all:"SEMUA",home:"Beranda",downloads:"Unduhan",add:"Tambah",settings:"Pengaturan",settingsTitle:"Pengaturan",
@@ -1220,7 +1350,7 @@ const translations={
   addOns:"ADD-ONS",worlds:"Worlds",textures:"Texture Packs/Shader",skins:"Skin",minecraftApk:"Minecraft APK",
   download:"Download",downloadAgain:"Download Lagi",delete:"Hapus Add-On",deleteHistory:"Hapus",
   empty:"Belum ada item.",emptyDownloads:"Belum ada Add-On yang diunduh. Tekan tombol Download pada Add-On untuk memasukkannya ke sini.",
-  downloaded:"Diunduh",about:"DFCraft Web • Versi 67.9.24",confirmClear:"Hapus semua riwayat Unduhan?",
+  downloaded:"Diunduh",about:"DFCraft Web • Versi 67.9.30",confirmClear:"Hapus semua riwayat Unduhan?",
   confirmReset:"Reset semua data DFCraft? Data Add-On dan riwayat Unduhan akan dihapus.",
   searchCategory:"🔎 Pilih Kategori",searchAll:"Semua",searchAddOns:"Add-Ons",searchWorlds:"Worlds",
   searchTextures:"Texture Packs/Shader",searchSkin:"Skin",searchApk:"Minecraft APK",
@@ -1298,7 +1428,7 @@ const translations={
   addOns:"ADD-ONS",worlds:"Dunia",textures:"Texture Packs/Shader",skins:"Skin",minecraftApk:"APK Minecraft",
   download:"Muat Turun",downloadAgain:"Muat Turun Lagi",delete:"Padam Add-On",deleteHistory:"Padam",
   empty:"Tiada item lagi.",emptyDownloads:"Belum ada Add-On dimuat turun. Tekan Muat Turun pada Add-On untuk menambahkannya di sini.",
-  downloaded:"Dimuat turun",about:"DFCraft Web • Versi 67.9.24",confirmClear:"Padam semua sejarah muat turun?",
+  downloaded:"Dimuat turun",about:"DFCraft Web • Versi 67.9.30",confirmClear:"Padam semua sejarah muat turun?",
   confirmReset:"Tetapkan semula semua data DFCraft? Add-On dan sejarah muat turun akan dipadam.",
   searchCategory:"🔎 Pilih Kategori",searchAll:"Semua",searchAddOns:"Add-Ons",searchWorlds:"Dunia",
   searchTextures:"Texture Packs/Shader",searchSkin:"Skin",searchApk:"APK Minecraft",
@@ -1508,7 +1638,7 @@ $("textColorSelect").oninput=e=>{
 };
 $("clearDownloads").onclick=()=>{if(confirm(t("confirmClear"))){downloads=[];localStorage.setItem("dfcraft_web2_downloads","[]");renderDownloads()}};
 
-$("cancel").onclick=()=>$("modal").style.display="none";
+$("cancel").onclick=()=>{closeWorkspacePages();page="home";current="Semua";render()};
 function updateLinkValidationStatus(){
   const linkEl=$("link"), status=$("linkValidationStatus"), catEl=$("cat");
   if(!linkEl||!status||!catEl)return;
@@ -2402,6 +2532,35 @@ window.dfInitialDataReady = loadRemoteAddons();
 
 
 
+
+
+<style id="dfcraft-page-header-nav-fix">
+  /* Kolom pencarian hanya ditampilkan di Beranda. */
+  body.add-page .top #search,
+  body.settings-page .top #search,
+  body.downloads-page .top #search {
+    display:none !important;
+  }
+  body.add-page .top,
+  body.settings-page .top,
+  body.downloads-page .top {
+    justify-content:flex-end;
+    min-height:70px;
+  }
+  /* Warna navigasi mengikuti halaman aktif, bukan warna teks kustom global. */
+  body .bottom .nav {
+    color:#c5ccd7 !important;
+  }
+  body .bottom .nav.active {
+    color:var(--df-user-text, #a9caff) !important;
+  }
+  body.light .bottom .nav {
+    color:#4e5a68 !important;
+  }
+  body.light .bottom .nav.active {
+    color:var(--df-user-text, #315d9d) !important;
+  }
+</style>
 
 </body></html>
 <style>
