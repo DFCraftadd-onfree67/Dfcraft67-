@@ -635,7 +635,7 @@ body.downloads-page #title{margin-top:0}
   #dfcraftNotice .notice-icon {
     flex:0 0 44px; width:44px; height:44px; display:grid;
     place-items:center; border-radius:14px; font-size:24px;
-    color:#ffcf65; background:rgba(255,190,70,.13);
+    color:#a8ef7a; background:rgba(111,210,65,.14); border:1px solid rgba(111,210,65,.22);
   }
   #dfcraftNotice .notice-title { margin:0; font-size:20px; font-weight:800; }
   #dfcraftNotice .notice-message {
@@ -648,7 +648,7 @@ body.downloads-page #title{margin-top:0}
   #dfcraftNotice .notice-button {
     min-width:112px; min-height:46px; padding:10px 20px;
     border:0; border-radius:13px; color:#08151a;
-    background:var(--primary-color,#00dfe5); font-size:15px;
+    background:#78d34b; font-size:15px;
     font-weight:800; cursor:pointer;
   }
   #dfcraftNotice .notice-button:focus-visible {
@@ -1313,18 +1313,33 @@ document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{page="home";current
 $("image").onchange=e=>{
   const file=e.target.files[0];if(!file)return;
   const isImage=file.type.startsWith("image/"),isVideo=file.type.startsWith("video/");
-  if(!isImage&&!isVideo){e.target.value="";return alert("Pilih gambar, GIF, atau video.");}
+  if(!isImage&&!isVideo){
+    e.target.value="";
+    return window.showDFCraftNotice("Format media tidak sesuai","Pilih gambar, GIF, atau video untuk Add-On DFCraft.","⚠");
+  }
   if(isVideo){
     const tempUrl=URL.createObjectURL(file),probe=document.createElement("video");
     probe.preload="metadata";probe.src=tempUrl;
     probe.onloadedmetadata=()=>{
       const duration=probe.duration;URL.revokeObjectURL(tempUrl);
-      if(!Number.isFinite(duration)||duration<=0){e.target.value="";return alert("Durasi video tidak dapat dibaca. Coba video lain.");}
-      if(duration>10.05){e.target.value="";selectedImageFile=null;$("imagePreview").textContent="Belum ada media dipilih";return alert("Video maksimal 10 detik. Pilih video yang durasinya 10 detik atau kurang.");}
+      if(!Number.isFinite(duration)||duration<=0){
+        e.target.value="";
+        return window.showDFCraftNotice("Durasi video tidak terbaca","Coba pilih video lain yang bisa diputar dengan normal.","⚠");
+      }
+      if(duration>10.05){
+        e.target.value="";
+        selectedImageFile=null;
+        $("imagePreview").textContent="Belum ada media dipilih";
+        return window.showDFCraftNotice("Video terlalu panjang","Video maksimal 10 detik. Pilih video yang durasinya 10 detik atau kurang.","⏱");
+      }
       selectedImageFile=file;const previewUrl=URL.createObjectURL(file);
       $("imagePreview").innerHTML=`<video src="${previewUrl}" controls autoplay muted loop playsinline style="max-width:100%;max-height:180px;border-radius:8px"></video><div style="margin-top:6px">Video • ${duration.toFixed(1)} detik</div>`;
     };
-    probe.onerror=()=>{URL.revokeObjectURL(tempUrl);e.target.value="";alert("Video tidak bisa dibaca. Coba format MP4 atau WebM.");};
+    probe.onerror=()=>{
+      URL.revokeObjectURL(tempUrl);
+      e.target.value="";
+      window.showDFCraftNotice("Video tidak dapat dibuka","Format video tidak bisa dibaca. Coba gunakan MP4 atau WebM.","⚠");
+    };
     return;
   }
   selectedImageFile=file;const url=URL.createObjectURL(file);
@@ -1393,7 +1408,7 @@ $("settings").onclick=()=>{
 };
 $("closeSettings").onclick=()=>{closeWorkspacePages();page="home";current="Semua";render()};
 
-const DFCraft_VERSION = "67.9.32"; // Ubah satu nilai ini setiap rilis DFCraft.
+const DFCraft_VERSION = "67.9.33"; // Ubah satu nilai ini setiap rilis DFCraft.
 const translations={
  id:{
   all:"SEMUA",home:"Beranda",downloads:"Unduhan",add:"Tambah",settings:"Pengaturan",settingsTitle:"Pengaturan",
