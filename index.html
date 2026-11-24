@@ -1408,7 +1408,7 @@ $("settings").onclick=()=>{
 };
 $("closeSettings").onclick=()=>{closeWorkspacePages();page="home";current="Semua";render()};
 
-const DFCraft_VERSION = "67.9.33"; // Ubah satu nilai ini setiap rilis DFCraft.
+const DFCraft_VERSION = "67.9.34"; // Ubah satu nilai ini setiap rilis DFCraft.
 const translations={
  id:{
   all:"SEMUA",home:"Beranda",downloads:"Unduhan",add:"Tambah",settings:"Pengaturan",settingsTitle:"Pengaturan",
@@ -1938,7 +1938,18 @@ $("save").onclick=async()=>{
     const mediaType=(selectedImageFile.type||"").startsWith("video/")?"video":"image";
     items.unshift({id:row.$id,name,image:imageUrl,mediaType,link,cat,owner:currentAppwriteUser.$id,ownerName:creatorName,fileId:imageId,createdAt:row.$createdAt||new Date().toISOString()});
     ["name","link"].forEach(id=>$(id).value="");if($("linkValidationStatus"))$("linkValidationStatus").textContent="";$("image").value="";selectedImageFile=null;$("imagePreview").textContent="Belum ada media dipilih";$("modal").style.display="none";page="home";render();
-  } catch(e) { console.error(e); alert("Gagal menyimpan Add-On ke Appwrite: "+(e.message||e)); } finally { btn.disabled=false;btn.textContent="Tambahkan"; }
+  } catch(e) {
+    console.error("[DFCraft] Gagal menyimpan Add-On:",e);
+    const detail=(e && e.message)?e.message:String(e||"Kesalahan tidak diketahui");
+    window.showDFCraftNotice(
+      "Gagal menyimpan Add-On",
+      "DFCraft belum berhasil mengirim Add-On ke Appwrite. Periksa koneksi internet lalu coba lagi.\n\nDetail: "+detail,
+      "☁"
+    );
+  } finally {
+    btn.disabled=false;
+    btn.textContent="Tambahkan";
+  }
 };
 let recTimer=null;
 function detectMediaFileType(link){
